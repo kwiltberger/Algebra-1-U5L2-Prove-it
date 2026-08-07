@@ -1,2238 +1,3884 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>
-    Algebra 1 | U5L2 Function Representation Challenge
-  </title>
-
-  <style>
-    :root {
-      --navy: #0f2d44;
-      --blue: #2f80a8;
-      --light-blue: #f0f7fb;
-      --green: #2f7d46;
-      --light-green: #eefaf1;
-      --yellow: #f2b705;
-      --light-yellow: #fff8e6;
-      --purple: #79518d;
-      --light-purple: #f6f0f8;
-      --red: #b42318;
-      --light-red: #fff1f0;
-      --gray-900: #1f2933;
-      --gray-700: #52606d;
-      --gray-400: #9aa7b2;
-      --gray-300: #cbd5df;
-      --gray-200: #dfe7ee;
-      --gray-100: #f6f9fb;
-      --white: #ffffff;
-      --shadow: 0 8px 24px rgba(15, 45, 68, 0.12);
-      --radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: #edf3f7;
-      color: var(--gray-900);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.55;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    button:focus-visible,
-    input:focus-visible,
-    select:focus-visible,
-    textarea:focus-visible {
-      outline: 4px solid rgba(242, 183, 5, 0.55);
-      outline-offset: 3px;
-    }
-
-    fieldset {
-      min-width: 0;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .app-shell {
-      width: min(1120px, calc(100% - 24px));
-      margin: 20px auto 50px;
-    }
-
-    .hero {
-      padding: 26px;
-      border-radius: var(--radius);
-      background: var(--navy);
-      color: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(1.7rem, 4vw, 2.4rem);
-      line-height: 1.2;
-    }
-
-    .hero p {
-      margin: 8px 0 0;
-      font-size: 1.08rem;
-    }
-
-    .panel {
-      margin-top: 16px;
-      padding: 22px;
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .panel h2,
-    .panel h3 {
-      color: var(--navy);
-    }
-
-    .panel h2 {
-      margin-top: 0;
-    }
-
-    .callout {
-      margin: 15px 0;
-      padding: 17px;
-      border-left: 6px solid;
-      border-radius: 9px;
-    }
-
-    .callout h2,
-    .callout h3 {
-      margin-top: 0;
-      color: var(--navy);
-    }
-
-    .callout-blue {
-      border-color: var(--blue);
-      background: var(--light-blue);
-    }
-
-    .callout-green {
-      border-color: var(--green);
-      background: var(--light-green);
-    }
-
-    .callout-yellow {
-      border-color: var(--yellow);
-      background: var(--light-yellow);
-    }
-
-    .callout-purple {
-      border-color: var(--purple);
-      background: var(--light-purple);
-    }
-
-    .status-bar {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin: 14px 0;
-    }
-
-    .status-item {
-      padding: 12px;
-      border: 1px solid var(--gray-200);
-      border-radius: 10px;
-      background: var(--white);
-      text-align: center;
-      box-shadow: 0 3px 10px rgba(15, 45, 68, 0.06);
-    }
-
-    .status-label {
-      display: block;
-      color: var(--gray-700);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .status-value {
-      display: block;
-      margin-top: 3px;
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .progress-strip {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .progress-step {
-      padding: 10px 5px;
-      border: 2px solid var(--gray-300);
-      border-radius: 8px;
-      background: var(--gray-100);
-      color: var(--gray-700);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .progress-step.current {
-      border-color: var(--blue);
-      background: var(--light-blue);
-      color: var(--navy);
-    }
-
-    .progress-step.complete {
-      border-color: var(--green);
-      background: var(--light-green);
-      color: var(--green);
-    }
-
-    .progress-track {
-      height: 15px;
-      margin-top: 14px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: var(--gray-200);
-    }
-
-    .progress-fill {
-      width: 0;
-      height: 100%;
-      background: var(--green);
-      transition: width 0.25s ease;
-    }
-
-    .progress-text {
-      margin: 7px 0 0;
-      color: var(--gray-700);
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .name-grid,
-    .input-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .field {
-      margin-top: 14px;
-    }
-
-    .field label,
-    .field-label {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      padding: 11px;
-      border: 2px solid var(--gray-300);
-      border-radius: 8px;
-      background: var(--white);
-      color: var(--gray-900);
-    }
-
-    .field textarea {
-      min-height: 105px;
-      resize: vertical;
-    }
-
-    .field-help {
-      margin: 5px 0 0;
-      color: var(--gray-700);
-      font-size: 0.9rem;
-    }
-
-    .problem-card {
-      padding: 20px;
-      border: 1px solid var(--gray-200);
-      border-radius: 10px;
-      background: var(--gray-100);
-    }
-
-    .problem-kicker {
-      margin: 0;
-      color: var(--green);
-      font-size: 0.86rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .equation-display {
-      margin: 16px 0;
-      padding: 18px;
-      border: 3px solid var(--blue);
-      border-radius: 10px;
-      background: var(--white);
-      color: var(--navy);
-      font-family: "Courier New", Courier, monospace;
-      font-size: clamp(1.15rem, 4vw, 1.55rem);
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      margin: 16px 0;
-    }
-
-    .function-table {
-      width: 100%;
-      max-width: 650px;
-      margin: 0 auto;
-      border-collapse: collapse;
-      background: var(--white);
-    }
-
-    .function-table th,
-    .function-table td {
-      padding: 11px;
-      border: 1px solid var(--gray-300);
-      text-align: center;
-    }
-
-    .function-table th {
-      background: var(--navy);
-      color: var(--white);
-    }
-
-    .function-table tbody tr:nth-child(even) {
-      background: var(--light-blue);
-    }
-
-    .choice-list {
-      display: grid;
-      gap: 9px;
-      margin-top: 10px;
-    }
-
-    .choice {
-      display: flex;
-      gap: 9px;
-      align-items: flex-start;
-      padding: 11px;
-      border: 1px solid var(--gray-300);
-      border-radius: 8px;
-      background: var(--white);
-    }
-
-    .choice input {
-      width: auto;
-      margin-top: 4px;
-    }
-
-    .graph-options {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .graph-option {
-      display: block;
-      padding: 10px;
-      border: 2px solid var(--gray-300);
-      border-radius: 10px;
-      background: var(--white);
-    }
-
-    .graph-option input {
-      width: auto;
-      margin-right: 6px;
-    }
-
-    .graph-label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .graph-option svg,
-    .representation-card svg {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .representation-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .representation-card {
-      padding: 14px;
-      border: 2px solid var(--gray-300);
-      border-radius: 10px;
-      background: var(--white);
-    }
-
-    .representation-card h3 {
-      margin-top: 0;
-      text-align: center;
-    }
-
-    .mapping-wrap {
-      max-width: 700px;
-      margin: 18px auto;
-      padding: 10px;
-      border: 2px solid var(--blue);
-      border-radius: 10px;
-      background: var(--white);
-    }
-
-    .mapping-wrap svg {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .boss-options {
-      display: grid;
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .boss-option {
-      display: block;
-      padding: 15px;
-      border: 2px solid var(--gray-300);
-      border-radius: 10px;
-      background: var(--white);
-    }
-
-    .boss-option-header {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 10px;
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .boss-option-header input {
-      width: auto;
-    }
-
-    .boss-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .boss-cell {
-      padding: 10px;
-      border: 1px solid var(--gray-300);
-      border-radius: 8px;
-      background: var(--gray-100);
-      text-align: center;
-    }
-
-    .boss-cell strong {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--navy);
-    }
-
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-top: 18px;
-    }
-
-    .button {
-      display: inline-block;
-      min-height: 46px;
-      padding: 11px 18px;
-      border: 2px solid transparent;
-      border-radius: 9px;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    .button-primary {
-      background: var(--navy);
-      color: var(--white);
-    }
-
-    .button-secondary {
-      background: var(--green);
-      color: var(--white);
-    }
-
-    .button-danger {
-      border-color: var(--red);
-      background: var(--white);
-      color: var(--red);
-    }
-
-    .feedback {
-      margin-top: 16px;
-      padding: 15px;
-      border-left: 6px solid var(--blue);
-      border-radius: 8px;
-      background: var(--light-blue);
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .feedback.success {
-      border-color: var(--green);
-      background: var(--light-green);
-      color: #1e5b32;
-    }
-
-    .feedback.error {
-      border-color: var(--red);
-      background: var(--light-red);
-      color: #86170f;
-    }
-
-    .certificate {
-      position: relative;
-      overflow: hidden;
-      padding: 34px;
-      border: 8px double var(--navy);
-      border-radius: 14px;
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-
-    .certificate::before {
-      position: absolute;
-      inset: 12px;
-      border: 1px solid var(--gray-300);
-      border-radius: 6px;
-      content: "";
-      pointer-events: none;
-    }
-
-    .certificate-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .certificate-kicker {
-      margin: 0;
-      color: var(--green);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .certificate h2 {
-      margin: 8px 0;
-      color: var(--navy);
-      font-size: clamp(1.8rem, 5vw, 2.7rem);
-      text-align: center;
-    }
-
-    .certificate-name {
-      margin: 18px auto;
-      padding-bottom: 6px;
-      border-bottom: 2px solid var(--navy);
-      color: var(--navy);
-      font-size: clamp(1.5rem, 4vw, 2.15rem);
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .certificate-statement {
-      max-width: 790px;
-      margin: 0 auto 18px;
-      text-align: center;
-    }
-
-    .mastery-table {
-      width: 100%;
-      max-width: 790px;
-      margin: 20px auto;
-      border-collapse: collapse;
-    }
-
-    .mastery-table th,
-    .mastery-table td {
-      padding: 10px;
-      border: 1px solid var(--gray-300);
-      text-align: left;
-    }
-
-    .mastery-table th {
-      background: var(--navy);
-      color: var(--white);
-    }
-
-    .certificate-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px 20px;
-      max-width: 790px;
-      margin: 20px auto;
-    }
-
-    .certificate-data {
-      padding: 9px;
-      border-bottom: 1px solid var(--gray-300);
-    }
-
-    .verification-box {
-      max-width: 790px;
-      margin: 20px auto 0;
-      padding: 12px;
-      border: 2px dashed var(--green);
-      border-radius: 8px;
-      background: var(--light-green);
-      text-align: center;
-    }
-
-    .verification-code {
-      display: block;
-      margin-top: 4px;
-      font-family: "Courier New", monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    .screen-reader-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-    }
-
-    @media (max-width: 900px) {
-      .representation-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .boss-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 720px) {
-      .status-bar,
-      .graph-options {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .name-grid,
-      .input-grid,
-      .certificate-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .progress-strip {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 520px) {
-      .app-shell {
-        width: min(100% - 12px, 1120px);
-        margin-top: 6px;
-      }
-
-      .hero,
-      .panel,
-      .certificate {
-        padding: 17px;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .boss-grid,
-      .graph-options {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media print {
-      @page {
-        size: letter portrait;
-        margin: 0.4in;
-      }
-
-      body {
-        background: var(--white);
-      }
-
-      body * {
-        visibility: hidden !important;
-      }
-
-      #completionScreen,
-      #completionScreen * {
-        visibility: visible !important;
-      }
-
-      #completionScreen {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      .certificate {
-        min-height: 9.4in;
-        box-shadow: none;
-        break-inside: avoid;
-      }
-
-      .no-print {
-        display: none !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+  Algebra 1 | U5L2 Function Representation Challenge
+</title>
+
+<style>
+:root {
+  --navy: #0f2d44;
+  --blue: #2f80a8;
+  --light-blue: #f0f7fb;
+  --green: #2f7d46;
+  --light-green: #eefaf1;
+  --yellow: #f2b705;
+  --light-yellow: #fff8e6;
+  --purple: #79518d;
+  --light-purple: #f6f0f8;
+  --red: #b42318;
+  --light-red: #fff1f0;
+  --gray-900: #1f2933;
+  --gray-700: #52606d;
+  --gray-400: #9aa7b2;
+  --gray-300: #cbd5df;
+  --gray-200: #dfe7ee;
+  --gray-100: #f6f9fb;
+  --white: #ffffff;
+  --shadow: 0 8px 24px rgba(15, 45, 68, 0.12);
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #edf3f7;
+  color: var(--gray-900);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 4px solid rgba(242, 183, 5, 0.55);
+  outline-offset: 3px;
+}
+
+fieldset {
+  min-width: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 24px));
+  margin: 20px auto 50px;
+}
+
+.hero {
+  padding: 26px;
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  line-height: 1.2;
+}
+
+.hero p {
+  margin: 8px 0 0;
+  font-size: 1.08rem;
+}
+
+.panel {
+  margin-top: 16px;
+  padding: 22px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.panel h2,
+.panel h3 {
+  color: var(--navy);
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.callout {
+  margin: 15px 0;
+  padding: 17px;
+  border-left: 6px solid;
+  border-radius: 9px;
+}
+
+.callout h2,
+.callout h3 {
+  margin-top: 0;
+  color: var(--navy);
+}
+
+.callout-blue {
+  border-color: var(--blue);
+  background: var(--light-blue);
+}
+
+.callout-green {
+  border-color: var(--green);
+  background: var(--light-green);
+}
+
+.callout-yellow {
+  border-color: var(--yellow);
+  background: var(--light-yellow);
+}
+
+.callout-purple {
+  border-color: var(--purple);
+  background: var(--light-purple);
+}
+
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.status-item {
+  padding: 12px;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  background: var(--white);
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(15, 45, 68, 0.06);
+}
+
+.status-label {
+  display: block;
+  color: var(--gray-700);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.status-value {
+  display: block;
+  margin-top: 3px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.progress-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.progress-step {
+  padding: 10px 5px;
+  border: 2px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.progress-step.current {
+  border-color: var(--blue);
+  background: var(--light-blue);
+  color: var(--navy);
+}
+
+.progress-step.complete {
+  border-color: var(--green);
+  background: var(--light-green);
+  color: var(--green);
+}
+
+.progress-track {
+  height: 15px;
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--gray-200);
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  background: var(--green);
+  transition: width 0.25s ease;
+}
+
+.progress-text {
+  margin: 7px 0 0;
+  color: var(--gray-700);
+  text-align: center;
+  font-weight: 700;
+}
+
+.name-grid,
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field {
+  margin-top: 14px;
+}
+
+.field label,
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 11px;
+  border: 2px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--gray-900);
+}
+
+.field textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.field-help {
+  margin: 5px 0 0;
+  color: var(--gray-700);
+  font-size: 0.9rem;
+}
+
+.problem-card {
+  padding: 20px;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  background: var(--gray-100);
+}
+
+.problem-kicker {
+  margin: 0;
+  color: var(--green);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.equation-display {
+  margin: 16px 0;
+  padding: 18px;
+  border: 3px solid var(--blue);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--navy);
+  font-family: "Courier New", Courier, monospace;
+  font-size: clamp(1.15rem, 4vw, 1.55rem);
+  font-weight: 700;
+  text-align: center;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.function-table {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: var(--white);
+}
+
+.function-table th,
+.function-table td {
+  padding: 11px;
+  border: 1px solid var(--gray-300);
+  text-align: center;
+}
+
+.function-table th {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.function-table tbody tr:nth-child(even) {
+  background: var(--light-blue);
+}
+
+.choice-list {
+  display: grid;
+  gap: 9px;
+  margin-top: 10px;
+}
+
+.choice {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  padding: 11px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.choice input {
+  width: auto;
+  margin-top: 4px;
+}
+
+.graph-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.graph-option {
+  display: block;
+  padding: 10px;
+  border: 2px solid var(--gray-300);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.graph-option input {
+  width: auto;
+  margin-right: 6px;
+}
+
+.graph-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.graph-option svg,
+.representation-card svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.representation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.representation-card {
+  padding: 14px;
+  border: 2px solid var(--gray-300);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.representation-card h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.mapping-wrap {
+  max-width: 700px;
+  margin: 18px auto;
+  padding: 10px;
+  border: 2px solid var(--blue);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.mapping-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.boss-options {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.boss-option {
+  display: block;
+  padding: 15px;
+  border: 2px solid var(--gray-300);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.boss-option-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.boss-option-header input {
+  width: auto;
+}
+
+.boss-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.boss-cell {
+  padding: 10px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--gray-100);
+  text-align: center;
+}
+
+.boss-cell strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--navy);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.button {
+  display: inline-block;
+  min-height: 46px;
+  padding: 11px 18px;
+  border: 2px solid transparent;
+  border-radius: 9px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button-primary {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.button-secondary {
+  background: var(--green);
+  color: var(--white);
+}
+
+.button-danger {
+  border-color: var(--red);
+  background: var(--white);
+  color: var(--red);
+}
+
+.feedback {
+  margin-top: 16px;
+  padding: 15px;
+  border-left: 6px solid var(--blue);
+  border-radius: 8px;
+  background: var(--light-blue);
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.feedback.success {
+  border-color: var(--green);
+  background: var(--light-green);
+  color: #1e5b32;
+}
+
+.feedback.error {
+  border-color: var(--red);
+  background: var(--light-red);
+  color: #86170f;
+}
+
+/* ===============================
+   COMPLETION REPORT
+================================ */
+
+.report-header {
+  padding: 24px;
+  border-radius: 10px;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.report-header h1 {
+  margin: 0;
+  color: var(--white);
+}
+
+.report-header p {
+  margin: 7px 0 0;
+}
+
+.report-section {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid var(--gray-200);
+  border-left: 6px solid var(--blue);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.report-section.green {
+  border-left-color: var(--green);
+}
+
+.report-section.purple {
+  border-left-color: var(--purple);
+}
+
+.report-section.yellow {
+  border-left-color: var(--yellow);
+}
+
+.report-section h2,
+.report-section h3 {
+  color: var(--navy);
+}
+
+.report-section h2 {
+  margin-top: 0;
+}
+
+.report-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.report-summary-item {
+  padding: 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--gray-100);
+}
+
+.report-summary-item strong {
+  color: var(--navy);
+}
+
+.report-label {
+  margin: 14px 0 5px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.report-response {
+  min-height: 44px;
+  padding: 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 7px;
+  background: var(--white);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.report-prompt {
+  margin: 12px 0;
+  padding: 14px;
+  border: 2px solid var(--blue);
+  border-radius: 8px;
+  background: var(--light-blue);
+}
+
+.report-graph {
+  max-width: 480px;
+  margin: 12px auto;
+  padding: 10px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.report-graph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.report-option {
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--gray-100);
+}
+
+.report-option.selected {
+  border: 3px solid var(--green);
+  background: var(--light-green);
+}
+
+.report-option-title {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.report-boss-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.report-boss-cell {
+  padding: 10px;
+  border: 1px solid var(--gray-300);
+  border-radius: 7px;
+  background: var(--white);
+}
+
+.report-boss-cell strong {
+  display: block;
+  color: var(--navy);
+}
+
+.print-directions {
+  margin-top: 20px;
+  padding: 16px;
+  border-left: 6px solid var(--yellow);
+  border-radius: 9px;
+  background: var(--light-yellow);
+}
+
+/* ===============================
+   CERTIFICATE
+================================ */
+
+.certificate {
+  position: relative;
+  overflow: hidden;
+  margin-top: 28px;
+  padding: 34px;
+  border: 8px double var(--navy);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.certificate::before {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  content: "";
+  pointer-events: none;
+}
+
+.certificate-content {
+  position: relative;
+  z-index: 1;
+}
+
+.certificate-kicker {
+  margin: 0;
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.certificate h2 {
+  margin: 8px 0;
+  color: var(--navy);
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
+  text-align: center;
+}
+
+.certificate-name {
+  margin: 18px auto;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--navy);
+  color: var(--navy);
+  font-size: clamp(1.5rem, 4vw, 2.15rem);
+  font-weight: 700;
+  text-align: center;
+}
+
+.certificate-statement {
+  max-width: 790px;
+  margin: 0 auto 18px;
+  text-align: center;
+}
+
+.mastery-table {
+  width: 100%;
+  max-width: 790px;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.mastery-table th,
+.mastery-table td {
+  padding: 10px;
+  border: 1px solid var(--gray-300);
+  text-align: left;
+}
+
+.mastery-table th {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 20px;
+  max-width: 790px;
+  margin: 20px auto;
+}
+
+.certificate-data {
+  padding: 9px;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.certificate-data strong {
+  color: var(--navy);
+}
+
+.verification-box {
+  max-width: 790px;
+  margin: 20px auto 0;
+  padding: 12px;
+  border: 2px dashed var(--green);
+  border-radius: 8px;
+  background: var(--light-green);
+  text-align: center;
+}
+
+.verification-code {
+  display: block;
+  margin-top: 4px;
+  font-family: "Courier New", monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.screen-reader-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .representation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .boss-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .status-bar,
+  .graph-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .name-grid,
+  .input-grid,
+  .certificate-grid,
+  .report-summary-grid,
+  .report-boss-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    width: min(100% - 12px, 1120px);
+    margin-top: 6px;
+  }
+
+  .hero,
+  .panel,
+  .certificate {
+    padding: 17px;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .boss-grid,
+  .graph-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 0.45in;
+  }
+
+  body {
+    background: var(--white);
+    color: #000;
+    font-size: 10.5pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #completionScreen,
+  #completionScreen * {
+    visibility: visible !important;
+  }
+
+  #completionScreen {
+    position: absolute;
+    inset: 0;
+    display: block !important;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .report-header {
+    background: var(--navy) !important;
+    color: var(--white) !important;
+  }
+
+  .report-section,
+  .report-summary-item,
+  .report-option,
+  .report-graph {
+    break-inside: avoid;
+  }
+
+  .report-graph {
+    max-width: 4.4in;
+  }
+
+  .certificate {
+    min-height: 9.2in;
+    page-break-before: always;
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .mastery-table th {
+    background: var(--navy) !important;
+    color: var(--white) !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+</style>
 </head>
 
 <body>
-  <main class="app-shell">
-    <header class="hero no-print">
-      <h1>
-        Algebra 1 | Unit 5 | Week 2
-      </h1>
 
-      <p>
-        Prove It! — Function Representation Challenge
-      </p>
-    </header>
+<main class="app-shell">
+
+<header class="hero no-print">
+  <h1>
+    Algebra 1 | Unit 5 | Week 2
+  </h1>
+
+  <p>
+    Prove It! — Function Representation Challenge
+  </p>
+</header>
+
+<div
+  id="liveStatus"
+  class="screen-reader-only"
+  aria-live="polite"
+></div>
+
+
+<!-- ============================
+     WELCOME
+============================= -->
+
+<section
+  id="welcomeScreen"
+  class="panel"
+>
+
+  <div class="callout callout-blue">
+    <h2>
+      Connect Function Representations
+    </h2>
+
+    <p>
+      Complete six randomized challenges involving function tables,
+      ordered pairs, equations, graphs, mappings, domain, and range.
+    </p>
+
+    <p style="margin-bottom: 0;">
+      Each challenge must be correct before the next challenge
+      unlocks.
+    </p>
+  </div>
+
+  <div class="callout callout-green">
+    <h3>
+      What You Will Demonstrate
+    </h3>
+
+    <p>
+      ☐ Convert a function table into ordered pairs.
+    </p>
+
+    <p>
+      ☐ Match ordered pairs to a graph.
+    </p>
+
+    <p>
+      ☐ Complete a table from a function rule.
+    </p>
+
+    <p>
+      ☐ Find an inconsistent representation.
+    </p>
+
+    <p>
+      ☐ Interpret a mapping diagram.
+    </p>
+
+    <p style="margin-bottom: 0;">
+      ☐ Match an equation, table, graph, and mapping.
+    </p>
+  </div>
+
+  <div class="callout callout-yellow">
+    <h3>
+      Submission
+    </h3>
+
+    <p>
+      Your responses are saved in this browser while you work.
+    </p>
+
+    <p style="margin-bottom: 0;">
+      After mastering all six challenges, your final submission page
+      will show every randomized representation and every response you
+      entered or selected. The completion certificate appears at the
+      end of the printable report.
+    </p>
+  </div>
+
+  <div class="name-grid">
+
+    <div class="field">
+      <label for="firstName">
+        First name
+      </label>
+
+      <input
+        id="firstName"
+        type="text"
+        autocomplete="given-name"
+        maxlength="40"
+      >
+    </div>
+
+    <div class="field">
+      <label for="lastName">
+        Last name
+      </label>
+
+      <input
+        id="lastName"
+        type="text"
+        autocomplete="family-name"
+        maxlength="40"
+      >
+    </div>
+
+  </div>
+
+  <div
+    id="welcomeFeedback"
+    class="feedback error hidden"
+    role="alert"
+  ></div>
+
+  <div class="button-row">
+    <button
+      id="beginButton"
+      class="button button-primary"
+      type="button"
+    >
+      Begin the Representation Challenge
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ============================
+     ACTIVITY
+============================= -->
+
+<section
+  id="activityScreen"
+  class="hidden"
+>
+
+  <div class="status-bar no-print">
+
+    <div class="status-item">
+      <span class="status-label">
+        Student
+      </span>
+
+      <span
+        id="studentStatus"
+        class="status-value"
+      ></span>
+    </div>
+
+    <div class="status-item">
+      <span class="status-label">
+        Challenge
+      </span>
+
+      <span
+        id="challengeStatus"
+        class="status-value"
+      >
+        1 of 6
+      </span>
+    </div>
+
+    <div class="status-item">
+      <span class="status-label">
+        Elapsed Time
+      </span>
+
+      <span
+        id="elapsedStatus"
+        class="status-value"
+      >
+        00:00
+      </span>
+    </div>
+
+    <div class="status-item">
+      <span class="status-label">
+        Answer Checks
+      </span>
+
+      <span
+        id="checksStatus"
+        class="status-value"
+      >
+        0
+      </span>
+    </div>
+
+  </div>
+
+  <div class="panel no-print">
 
     <div
-      id="liveStatus"
-      class="screen-reader-only"
-      aria-live="polite"
-    ></div>
-
-    <section
-      id="welcomeScreen"
-      class="panel"
+      id="progressStrip"
+      class="progress-strip"
+      aria-label="Representation challenge progress"
     >
-      <div class="callout callout-blue">
-        <h2>
-          Connect Function Representations
-        </h2>
-
-        <p>
-          Complete six randomized challenges involving function tables,
-          ordered pairs, equations, graphs, mappings, domain, and range.
-        </p>
-
-        <p style="margin-bottom: 0;">
-          Each challenge must be correct before the next challenge
-          unlocks.
-        </p>
+      <div class="progress-step">
+        Table
       </div>
 
-      <div class="callout callout-green">
-        <h3>
-          What You Will Demonstrate
-        </h3>
-
-        <p>☐ Convert a function table into ordered pairs.</p>
-        <p>☐ Match ordered pairs to a graph.</p>
-        <p>☐ Complete a table from a function rule.</p>
-        <p>☐ Find an inconsistent representation.</p>
-        <p>☐ Interpret a mapping diagram.</p>
-
-        <p style="margin-bottom: 0;">
-          ☐ Match an equation, table, graph, and mapping.
-        </p>
+      <div class="progress-step">
+        Graph
       </div>
 
-      <div class="callout callout-yellow">
-        <h3>
-          Submission
-        </h3>
-
-        <p style="margin-bottom: 0;">
-          After mastering all six challenges, save the completion
-          certificate as a PDF or take a clear screenshot for Canvas.
-          No screen recording is required.
-        </p>
+      <div class="progress-step">
+        Rule
       </div>
 
-      <div class="name-grid">
-        <div class="field">
-          <label for="firstName">
-            First name
-          </label>
-
-          <input
-            id="firstName"
-            type="text"
-            autocomplete="given-name"
-            maxlength="40"
-          >
-        </div>
-
-        <div class="field">
-          <label for="lastName">
-            Last name
-          </label>
-
-          <input
-            id="lastName"
-            type="text"
-            autocomplete="family-name"
-            maxlength="40"
-          >
-        </div>
+      <div class="progress-step">
+        Detective
       </div>
+
+      <div class="progress-step">
+        Mapping
+      </div>
+
+      <div class="progress-step">
+        Match
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div
+        id="progressFill"
+        class="progress-fill"
+      ></div>
+    </div>
+
+    <p
+      id="progressText"
+      class="progress-text"
+    >
+      Challenge 1 of 6
+    </p>
+
+  </div>
+
+  <section class="panel">
+
+    <div class="problem-card">
+
+      <p
+        id="problemKicker"
+        class="problem-kicker"
+      ></p>
+
+      <h2 id="problemTitle"></h2>
+
+      <div id="problemContent"></div>
 
       <div
-        id="welcomeFeedback"
-        class="feedback error hidden"
-        role="alert"
-      ></div>
-
-      <div class="button-row">
-        <button
-          id="beginButton"
-          class="button button-primary"
-          type="button"
-        >
-          Begin the Representation Challenge
-        </button>
-      </div>
-    </section>
-
-    <section
-      id="activityScreen"
-      class="hidden"
-    >
-      <div class="status-bar no-print">
-        <div class="status-item">
-          <span class="status-label">
-            Student
-          </span>
-
-          <span
-            id="studentStatus"
-            class="status-value"
-          ></span>
-        </div>
-
-        <div class="status-item">
-          <span class="status-label">
-            Challenge
-          </span>
-
-          <span
-            id="challengeStatus"
-            class="status-value"
-          >
-            1 of 6
-          </span>
-        </div>
-
-        <div class="status-item">
-          <span class="status-label">
-            Elapsed Time
-          </span>
-
-          <span
-            id="elapsedStatus"
-            class="status-value"
-          >
-            00:00
-          </span>
-        </div>
-
-        <div class="status-item">
-          <span class="status-label">
-            Answer Checks
-          </span>
-
-          <span
-            id="checksStatus"
-            class="status-value"
-          >
-            0
-          </span>
-        </div>
-      </div>
-
-      <div class="panel no-print">
-        <div
-          id="progressStrip"
-          class="progress-strip"
-          aria-label="Representation challenge progress"
-        >
-          <div class="progress-step">
-            Table
-          </div>
-
-          <div class="progress-step">
-            Graph
-          </div>
-
-          <div class="progress-step">
-            Rule
-          </div>
-
-          <div class="progress-step">
-            Detective
-          </div>
-
-          <div class="progress-step">
-            Mapping
-          </div>
-
-          <div class="progress-step">
-            Match
-          </div>
-        </div>
-
-        <div class="progress-track">
-          <div
-            id="progressFill"
-            class="progress-fill"
-          ></div>
-        </div>
-
-        <p
-          id="progressText"
-          class="progress-text"
-        >
-          Challenge 1 of 6
-        </p>
-      </div>
-
-      <section class="panel">
-        <div class="problem-card">
-          <p
-            id="problemKicker"
-            class="problem-kicker"
-          ></p>
-
-          <h2 id="problemTitle"></h2>
-
-          <div id="problemContent"></div>
-
-          <div
-            id="problemFeedback"
-            class="feedback"
-            role="status"
-            aria-live="polite"
-          >
-            Complete every response and check your work.
-          </div>
-
-          <div class="button-row no-print">
-            <button
-              id="checkButton"
-              class="button button-secondary"
-              type="button"
-            >
-              Check This Challenge
-            </button>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section
-      id="completionScreen"
-      class="panel hidden"
-    >
-      <div class="certificate">
-        <div class="certificate-content">
-          <p class="certificate-kicker">
-            Algebra 1 Mastery Evidence
-          </p>
-
-          <h2>
-            Function Representations Mastery
-          </h2>
-
-          <p class="certificate-statement">
-            This certificate confirms that the student named below
-            correctly completed six randomized challenges involving
-            tables, ordered pairs, equations, graphs, mappings, domain,
-            and range.
-          </p>
-
-          <div
-            id="certificateName"
-            class="certificate-name"
-          ></div>
-
-          <table class="mastery-table">
-            <thead>
-              <tr>
-                <th scope="col">
-                  Representation Skill
-                </th>
-
-                <th scope="col">
-                  Result
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>
-                  Table to Ordered Pairs
-                </td>
-
-                <td>
-                  Mastered
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  Ordered Pairs to Graph
-                </td>
-
-                <td>
-                  Mastered
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  Complete a Function Table
-                </td>
-
-                <td>
-                  Mastered
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  Representation Detective
-                </td>
-
-                <td>
-                  Mastered
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  Mapping Diagram
-                </td>
-
-                <td>
-                  Mastered
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  Multiple Representation Match
-                </td>
-
-                <td>
-                  Mastered
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="certificate-grid">
-            <div class="certificate-data">
-              <strong>Date:</strong>
-              <span id="certificateDate"></span>
-            </div>
-
-            <div class="certificate-data">
-              <strong>Activity Version:</strong>
-              <span id="certificateVersion"></span>
-            </div>
-
-            <div class="certificate-data">
-              <strong>Started:</strong>
-              <span id="certificateStart"></span>
-            </div>
-
-            <div class="certificate-data">
-              <strong>Completed:</strong>
-              <span id="certificateCompleted"></span>
-            </div>
-
-            <div class="certificate-data">
-              <strong>Elapsed Time:</strong>
-              <span id="certificateElapsed"></span>
-            </div>
-
-            <div class="certificate-data">
-              <strong>Answer Checks:</strong>
-              <span id="certificateChecks"></span>
-            </div>
-
-            <div class="certificate-data">
-              <strong>Challenges:</strong>
-              6 of 6 mastered
-            </div>
-
-            <div class="certificate-data">
-              <strong>Mastery Status:</strong>
-              Complete
-            </div>
-          </div>
-
-          <div class="verification-box">
-            <strong>
-              Completion Verification Code
-            </strong>
-
-            <span
-              id="certificateCode"
-              class="verification-code"
-            ></span>
-          </div>
-
-          <p style="text-align: center; margin-top: 18px;">
-            Save this page as a PDF or take a clear screenshot, then
-            submit it to the U5L2 Prove It! assignment in Canvas.
-          </p>
-        </div>
+        id="problemFeedback"
+        class="feedback"
+        role="status"
+        aria-live="polite"
+      >
+        Complete every response and check your work.
       </div>
 
       <div class="button-row no-print">
         <button
-          id="printButton"
-          class="button button-primary"
+          id="checkButton"
+          class="button button-secondary"
           type="button"
         >
-          Print or Save as PDF
-        </button>
-
-        <button
-          id="newAttemptButton"
-          class="button button-danger"
-          type="button"
-        >
-          Start a New Attempt
+          Check This Challenge
         </button>
       </div>
-    </section>
-  </main>
 
-  <script>
-    "use strict";
+    </div>
 
-    const ACTIVITY_VERSION =
-      "U5W2-REPRESENTATIONS-1.0";
+  </section>
 
-    const state = {
-      studentName: "",
-      startedAt: null,
-      completedAt: null,
-      currentChallenge: 0,
-      totalChecks: 0,
-      challenges: [],
-      timerId: null
-    };
+</section>
 
-    const welcomeScreen =
-      document.getElementById(
-        "welcomeScreen"
+
+<!-- ============================
+     COMPLETION REPORT
+============================= -->
+
+<section
+  id="completionScreen"
+  class="panel hidden"
+>
+
+  <header class="report-header">
+
+    <h1>
+      Algebra 1 Prove It! Submission
+    </h1>
+
+    <p>
+      Unit 5 Week 2 — Function Representation Challenge
+    </p>
+
+  </header>
+
+
+  <section class="report-section">
+
+    <h2>
+      Student and Completion Information
+    </h2>
+
+    <div class="report-summary-grid">
+
+      <div class="report-summary-item">
+        <strong>Student:</strong>
+        <span id="reportStudent"></span>
+      </div>
+
+      <div class="report-summary-item">
+        <strong>Date:</strong>
+        <span id="reportDate"></span>
+      </div>
+
+      <div class="report-summary-item">
+        <strong>Started:</strong>
+        <span id="reportStarted"></span>
+      </div>
+
+      <div class="report-summary-item">
+        <strong>Completed:</strong>
+        <span id="reportCompleted"></span>
+      </div>
+
+      <div class="report-summary-item">
+        <strong>Elapsed Time:</strong>
+        <span id="reportElapsed"></span>
+      </div>
+
+      <div class="report-summary-item">
+        <strong>Answer Checks:</strong>
+        <span id="reportChecks"></span>
+      </div>
+
+      <div class="report-summary-item">
+        <strong>Challenges:</strong>
+        6 of 6 mastered
+      </div>
+
+      <div class="report-summary-item">
+        <strong>Activity Version:</strong>
+        <span id="reportVersion"></span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <div id="challengeReports"></div>
+
+
+  <section class="report-section">
+
+    <h2>
+      Completion Verification
+    </h2>
+
+    <p>
+      This report was generated after all six randomized
+      representation challenges met the activity requirements.
+    </p>
+
+    <div class="verification-box">
+
+      <strong>
+        Completion Verification Code
+      </strong>
+
+      <span
+        id="reportCode"
+        class="verification-code"
+      ></span>
+
+    </div>
+
+  </section>
+
+
+  <div class="print-directions no-print">
+
+    <strong>
+      Submission directions:
+    </strong>
+
+    Select <em>Print or Save as PDF</em>. In the browser print window,
+    choose <em>Save as PDF</em>. Review the preview to make sure all
+    six challenges, selected answers, typed responses, written
+    explanations, graphs, mappings, and the certificate are included.
+    Save the PDF and submit it to the U5L2 Prove It! assignment in
+    Canvas.
+
+  </div>
+
+
+  <!-- ============================
+       CERTIFICATE
+  ============================= -->
+
+  <section class="certificate">
+
+    <div class="certificate-content">
+
+      <p class="certificate-kicker">
+        Algebra 1 Mastery Evidence
+      </p>
+
+      <h2>
+        Function Representations Mastery
+      </h2>
+
+      <p class="certificate-statement">
+        This certificate confirms that the student named below
+        correctly completed six randomized challenges involving
+        tables, ordered pairs, equations, graphs, mappings, domain,
+        and range.
+      </p>
+
+      <div
+        id="certificateName"
+        class="certificate-name"
+      ></div>
+
+      <table class="mastery-table">
+
+        <thead>
+          <tr>
+            <th scope="col">
+              Representation Skill
+            </th>
+
+            <th scope="col">
+              Result
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>
+              Table to Ordered Pairs
+            </td>
+
+            <td>
+              Mastered
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Ordered Pairs to Graph
+            </td>
+
+            <td>
+              Mastered
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Complete a Function Table
+            </td>
+
+            <td>
+              Mastered
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Representation Detective
+            </td>
+
+            <td>
+              Mastered
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Mapping Diagram
+            </td>
+
+            <td>
+              Mastered
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Multiple Representation Match
+            </td>
+
+            <td>
+              Mastered
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+      <div class="certificate-grid">
+
+        <div class="certificate-data">
+          <strong>Date:</strong>
+          <span id="certificateDate"></span>
+        </div>
+
+        <div class="certificate-data">
+          <strong>Activity Version:</strong>
+          <span id="certificateVersion"></span>
+        </div>
+
+        <div class="certificate-data">
+          <strong>Started:</strong>
+          <span id="certificateStart"></span>
+        </div>
+
+        <div class="certificate-data">
+          <strong>Completed:</strong>
+          <span id="certificateCompleted"></span>
+        </div>
+
+        <div class="certificate-data">
+          <strong>Elapsed Time:</strong>
+          <span id="certificateElapsed"></span>
+        </div>
+
+        <div class="certificate-data">
+          <strong>Answer Checks:</strong>
+          <span id="certificateChecks"></span>
+        </div>
+
+        <div class="certificate-data">
+          <strong>Challenges:</strong>
+          6 of 6 mastered
+        </div>
+
+        <div class="certificate-data">
+          <strong>Mastery Status:</strong>
+          Complete
+        </div>
+
+      </div>
+
+      <div class="verification-box">
+
+        <strong>
+          Completion Verification Code
+        </strong>
+
+        <span
+          id="certificateCode"
+          class="verification-code"
+        ></span>
+
+      </div>
+
+      <p style="text-align:center;margin-top:18px;">
+        This certificate is included with the student's complete
+        Unit 5 Week 2 mastery evidence.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <div class="button-row no-print">
+
+    <button
+      id="printButton"
+      class="button button-primary"
+      type="button"
+    >
+      Print or Save as PDF
+    </button>
+
+    <button
+      id="newAttemptButton"
+      class="button button-danger"
+      type="button"
+    >
+      Start a New Attempt
+    </button>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<script>
+"use strict";
+
+const ACTIVITY_VERSION =
+  "U5W2-REPRESENTATIONS-1.1";
+
+const STORAGE_KEY =
+  "algebra1-u5w2-function-representations";
+
+
+/* ==========================================
+   STATE
+========================================== */
+
+const state = {
+  firstName: "",
+  lastName: "",
+  studentName: "",
+  startedAt: null,
+  completedAt: null,
+  currentChallenge: 0,
+  totalChecks: 0,
+  challenges: [],
+  mastered: [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  responses: [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  timerId: null
+};
+
+
+const welcomeScreen =
+  document.getElementById(
+    "welcomeScreen"
+  );
+
+const activityScreen =
+  document.getElementById(
+    "activityScreen"
+  );
+
+const completionScreen =
+  document.getElementById(
+    "completionScreen"
+  );
+
+const problemContent =
+  document.getElementById(
+    "problemContent"
+  );
+
+const problemFeedback =
+  document.getElementById(
+    "problemFeedback"
+  );
+
+const liveStatus =
+  document.getElementById(
+    "liveStatus"
+  );
+
+
+/* ==========================================
+   RANDOM / FORMAT HELPERS
+========================================== */
+
+function randomInteger(
+  min,
+  max
+) {
+  return Math.floor(
+    Math.random() *
+    (max - min + 1)
+  ) + min;
+}
+
+function choose(array) {
+  return array[
+    randomInteger(
+      0,
+      array.length - 1
+    )
+  ];
+}
+
+function shuffle(array) {
+  const copy =
+    [...array];
+
+  for (
+    let index =
+      copy.length - 1;
+    index > 0;
+    index -= 1
+  ) {
+    const other =
+      randomInteger(
+        0,
+        index
       );
 
-    const activityScreen =
-      document.getElementById(
-        "activityScreen"
-      );
+    [
+      copy[index],
+      copy[other]
+    ] = [
+      copy[other],
+      copy[index]
+    ];
+  }
 
-    const completionScreen =
-      document.getElementById(
-        "completionScreen"
-      );
+  return copy;
+}
 
-    const problemContent =
-      document.getElementById(
-        "problemContent"
-      );
+function uniqueIntegers(
+  count,
+  min,
+  max
+) {
+  const values =
+    new Set();
 
-    const problemFeedback =
-      document.getElementById(
-        "problemFeedback"
-      );
+  while (
+    values.size <
+    count
+  ) {
+    values.add(
+      randomInteger(
+        min,
+        max
+      )
+    );
+  }
 
-    const liveStatus =
-      document.getElementById(
-        "liveStatus"
-      );
+  return [
+    ...values
+  ];
+}
 
-    function randomInteger(min, max) {
-      return Math.floor(
-        Math.random() *
-        (max - min + 1)
-      ) + min;
-    }
+function formatSigned(
+  value
+) {
+  return value < 0
+    ? `- ${Math.abs(value)}`
+    : `+ ${value}`;
+}
 
-    function choose(array) {
-      return array[
-        randomInteger(
-          0,
-          array.length - 1
-        )
-      ];
-    }
+function formatLinearRule(
+  slope,
+  intercept
+) {
+  let xTerm;
 
-    function shuffle(array) {
-      const copy = [...array];
+  if (
+    slope === 1
+  ) {
+    xTerm =
+      "x";
+  } else if (
+    slope === -1
+  ) {
+    xTerm =
+      "-x";
+  } else {
+    xTerm =
+      `${slope}x`;
+  }
 
-      for (
-        let index = copy.length - 1;
-        index > 0;
-        index -= 1
-      ) {
-        const other =
-          randomInteger(0, index);
+  if (
+    intercept === 0
+  ) {
+    return (
+      `f(x) = ${xTerm}`
+    );
+  }
 
-        [
-          copy[index],
-          copy[other]
-        ] = [
-          copy[other],
-          copy[index]
-        ];
-      }
+  return (
+    `f(x) = ${xTerm} ` +
+    formatSigned(
+      intercept
+    )
+  );
+}
 
-      return copy;
-    }
+function formatEquation(
+  slope,
+  intercept
+) {
+  return formatLinearRule(
+    slope,
+    intercept
+  ).replace(
+    "f(x)",
+    "y"
+  );
+}
 
-    function uniqueIntegers(
+function formatPairs(
+  pairs
+) {
+  return pairs
+    .map(
+      pair =>
+        `(${pair[0]}, ${pair[1]})`
+    )
+    .join(", ");
+}
+
+function setNotation(
+  values
+) {
+  return (
+    `{${values.join(", ")}}`
+  );
+}
+
+
+/* ==========================================
+   QUESTION GENERATION
+========================================== */
+
+function generateLinearData(
+  count = 4
+) {
+  const slope =
+    choose([
+      -4, -3, -2, -1,
+      1, 2, 3, 4
+    ]);
+
+  const intercept =
+    randomInteger(
+      -6,
+      6
+    );
+
+  const inputs =
+    uniqueIntegers(
       count,
-      min,
-      max
-    ) {
-      const values = new Set();
+      -5,
+      5
+    ).sort(
+      (
+        first,
+        second
+      ) =>
+        first - second
+    );
 
-      while (values.size < count) {
-        values.add(
-          randomInteger(min, max)
-        );
-      }
+  const pairs =
+    inputs.map(
+      input => [
+        input,
+        slope *
+          input +
+          intercept
+      ]
+    );
 
-      return [...values];
-    }
+  return {
+    slope,
+    intercept,
+    inputs,
+    pairs
+  };
+}
 
-    function formatSigned(value) {
-      return value < 0
-        ? `- ${Math.abs(value)}`
-        : `+ ${value}`;
-    }
 
-    function formatLinearRule(
-      slope,
-      intercept
-    ) {
-      let xTerm;
+/*
+  Prevent a distractor from becoming identical to
+  the correct ordered-pair set.
 
-      if (slope === 1) {
-        xTerm = "x";
-      } else if (slope === -1) {
-        xTerm = "-x";
-      } else {
-        xTerm = `${slope}x`;
-      }
+  In particular, reversing (x,y) gives the same
+  relation when y=x, so that distractor must be
+  replaced in that special case.
+*/
 
-      if (intercept === 0) {
-        return `f(x) = ${xTerm}`;
-      }
+function pairSignature(
+  pairs
+) {
+  return pairs
+    .map(
+      pair =>
+        `${pair[0]},${pair[1]}`
+    )
+    .join("|");
+}
 
-      return (
-        `f(x) = ${xTerm} ` +
-        formatSigned(intercept)
-      );
-    }
+function generateTableChallenge() {
+  const data =
+    generateLinearData(
+      4
+    );
 
-    function formatEquation(
-      slope,
-      intercept
-    ) {
-      return formatLinearRule(
-        slope,
-        intercept
-      ).replace("f(x)", "y");
-    }
+  const correctPairs =
+    data.pairs;
 
-    function formatPairs(pairs) {
-      return pairs
-        .map(
-          pair =>
-            `(${pair[0]}, ${pair[1]})`
-        )
-        .join(", ");
-    }
+  const distractorSets =
+    [];
 
-    function setNotation(values) {
-      return `{${values.join(", ")}}`;
-    }
+  const candidateSets = [
+    data.pairs.map(
+      pair => [
+        pair[1],
+        pair[0]
+      ]
+    ),
 
-    function generateLinearData(
-      count = 4
-    ) {
-      const slope =
-        choose([
-          -4, -3, -2, -1,
-          1, 2, 3, 4
-        ]);
+    data.pairs.map(
+      pair => [
+        pair[0],
+        pair[1] + 1
+      ]
+    ),
 
-      const intercept =
-        randomInteger(-6, 6);
-
-      const inputs =
-        uniqueIntegers(
-          count,
-          -5,
-          5
-        ).sort((a, b) => a - b);
-
-      const pairs =
-        inputs.map(
-          input => [
-            input,
-            slope * input +
-            intercept
-          ]
-        );
-
-      return {
-        slope,
-        intercept,
-        inputs,
-        pairs
-      };
-    }
-
-    function generateTableChallenge() {
-      const data =
-        generateLinearData(4);
-
-      const correct =
-        formatPairs(data.pairs);
-
-      const reversed =
-        formatPairs(
-          data.pairs.map(
-            pair => [
-              pair[1],
-              pair[0]
-            ]
-          )
-        );
-
-      const shifted =
-        formatPairs(
-          data.pairs.map(
-            pair => [
+    data.pairs.map(
+      (
+        pair,
+        index
+      ) =>
+        index === 2
+          ? [
               pair[0],
-              pair[1] + 1
+              pair[1] - 2
             ]
-          )
+          : [
+              pair[0],
+              pair[1]
+            ]
+    ),
+
+    data.pairs.map(
+      (
+        pair,
+        index
+      ) =>
+        index === 0
+          ? [
+              pair[0] + 1,
+              pair[1]
+            ]
+          : [
+              pair[0],
+              pair[1]
+            ]
+    )
+  ];
+
+  const correctSignature =
+    pairSignature(
+      correctPairs
+    );
+
+  candidateSets.forEach(
+    candidate => {
+      if (
+        pairSignature(
+          candidate
+        ) !==
+          correctSignature &&
+        !distractorSets.some(
+          existing =>
+            pairSignature(
+              existing
+            ) ===
+            pairSignature(
+              candidate
+            )
+        )
+      ) {
+        distractorSets.push(
+          candidate
         );
-
-      const mixed =
-        formatPairs(
-          data.pairs.map(
-            (pair, index) =>
-              index === 2
-                ? [
-                  pair[0],
-                  pair[1] - 2
-                ]
-                : pair
-          )
-        );
-
-      const choices =
-        shuffle([
-          {
-            text: correct,
-            correct: true
-          },
-          {
-            text: reversed,
-            correct: false
-          },
-          {
-            text: shifted,
-            correct: false
-          },
-          {
-            text: mixed,
-            correct: false
-          }
-        ]);
-
-      return {
-        type: "table-pairs",
-        ...data,
-        domain:
-          [...data.inputs],
-        range:
-          data.pairs
-            .map(pair => pair[1])
-            .sort((a, b) => a - b),
-        choices
-      };
+      }
     }
+  );
 
-    function generateGraphChallenge() {
-      const data =
-        generateLinearData(4);
+  while (
+    distractorSets.length <
+    3
+  ) {
+    const adjustment =
+      distractorSets.length +
+      2;
 
-      const correctPoints =
-        data.pairs;
+    distractorSets.push(
+      data.pairs.map(
+        pair => [
+          pair[0],
+          pair[1] +
+            adjustment
+        ]
+      )
+    );
+  }
 
-      const reversedPoints =
+  const choices =
+    shuffle([
+      {
+        text:
+          formatPairs(
+            correctPairs
+          ),
+
+        correct:
+          true
+      },
+
+      ...distractorSets
+        .slice(
+          0,
+          3
+        )
+        .map(
+          pairs => ({
+            text:
+              formatPairs(
+                pairs
+              ),
+
+            correct:
+              false
+          })
+        )
+    ]);
+
+  /*
+    Range is a SET, so repeated outputs
+    must be listed only once.
+  */
+
+  const range =
+    [
+      ...new Set(
         data.pairs.map(
-          pair => [
-            pair[1],
-            pair[0]
-          ]
+          pair =>
+            pair[1]
+        )
+      )
+    ].sort(
+      (
+        first,
+        second
+      ) =>
+        first - second
+    );
+
+  return {
+    type:
+      "table-pairs",
+
+    ...data,
+
+    domain:
+      [...data.inputs],
+
+    range,
+
+    choices
+  };
+}
+
+
+function generateGraphChallenge() {
+  const data =
+    generateLinearData(
+      4
+    );
+
+  const correctPoints =
+    data.pairs;
+
+  const correctSignature =
+    pairSignature(
+      correctPoints
+    );
+
+  const candidateSets = [
+    data.pairs.map(
+      pair => [
+        pair[1],
+        pair[0]
+      ]
+    ),
+
+    data.pairs.map(
+      pair => [
+        pair[0],
+        pair[1] + 2
+      ]
+    ),
+
+    data.pairs.map(
+      pair => [
+        pair[0],
+        -pair[1]
+      ]
+    ),
+
+    data.pairs.map(
+      (
+        pair,
+        index
+      ) =>
+        index === 1
+          ? [
+              pair[0],
+              pair[1] + 3
+            ]
+          : [
+              pair[0],
+              pair[1]
+            ]
+    )
+  ];
+
+  const distractorSets =
+    [];
+
+  candidateSets.forEach(
+    candidate => {
+      const signature =
+        pairSignature(
+          candidate
         );
 
-      const shiftedPoints =
-        data.pairs.map(
-          pair => [
-            pair[0],
-            pair[1] + 2
-          ]
+      if (
+        signature !==
+          correctSignature &&
+        !distractorSets.some(
+          existing =>
+            pairSignature(
+              existing
+            ) ===
+            signature
+        )
+      ) {
+        distractorSets.push(
+          candidate
         );
-
-      const reflectedPoints =
-        data.pairs.map(
-          pair => [
-            pair[0],
-            -pair[1]
-          ]
-        );
-
-      const graphSets =
-        shuffle([
-          {
-            points: correctPoints,
-            correct: true
-          },
-          {
-            points: reversedPoints,
-            correct: false
-          },
-          {
-            points: shiftedPoints,
-            correct: false
-          },
-          {
-            points: reflectedPoints,
-            correct: false
-          }
-        ]);
-
-      return {
-        type: "pairs-graph",
-        pairs: data.pairs,
-        graphSets
-      };
+      }
     }
+  );
 
-    function generateTableCompletionChallenge() {
-      const data =
-        generateLinearData(3);
+  while (
+    distractorSets.length <
+    3
+  ) {
+    const adjustment =
+      distractorSets.length +
+      2;
 
-      return {
-        type: "complete-table",
-        slope: data.slope,
-        intercept: data.intercept,
-        inputs: data.inputs,
-        outputs:
-          data.pairs.map(
-            pair => pair[1]
-          )
-      };
-    }
+    distractorSets.push(
+      data.pairs.map(
+        pair => [
+          pair[0] +
+            adjustment,
+          pair[1]
+        ]
+      )
+    );
+  }
 
-    function generateDetectiveChallenge() {
-      const data =
-        generateLinearData(4);
+  const graphSets =
+    shuffle([
+      {
+        points:
+          correctPoints,
 
-      const incorrectType =
-        choose([
-          "equation",
-          "table",
-          "graph"
-        ]);
+        correct:
+          true
+      },
 
-      const wrongSlope =
-        data.slope > 0
-          ? data.slope + 1
-          : data.slope - 1;
+      ...distractorSets
+        .slice(
+          0,
+          3
+        )
+        .map(
+          points => ({
+            points,
+            correct:
+              false
+          })
+        )
+    ]);
 
-      const wrongIntercept =
-        data.intercept + 2;
+  return {
+    type:
+      "pairs-graph",
 
-      const equation =
-        incorrectType === "equation"
-          ? formatEquation(
-            wrongSlope,
-            data.intercept
-          )
-          : formatEquation(
-            data.slope,
-            data.intercept
-          );
+    pairs:
+      data.pairs,
 
-      const tablePairs =
-        incorrectType === "table"
-          ? data.pairs.map(
-            (pair, index) =>
-              index === 1
-                ? [
+    graphSets
+  };
+}
+
+
+function generateTableCompletionChallenge() {
+  const data =
+    generateLinearData(
+      3
+    );
+
+  return {
+    type:
+      "complete-table",
+
+    slope:
+      data.slope,
+
+    intercept:
+      data.intercept,
+
+    inputs:
+      data.inputs,
+
+    outputs:
+      data.pairs.map(
+        pair =>
+          pair[1]
+      )
+  };
+}
+
+
+function generateDetectiveChallenge() {
+  const data =
+    generateLinearData(
+      4
+    );
+
+  const incorrectType =
+    choose([
+      "equation",
+      "table",
+      "graph"
+    ]);
+
+  const wrongSlope =
+    data.slope > 0
+      ? data.slope + 1
+      : data.slope - 1;
+
+  const wrongIntercept =
+    data.intercept + 2;
+
+  const equation =
+    incorrectType ===
+      "equation"
+      ? formatEquation(
+          wrongSlope,
+          data.intercept
+        )
+      : formatEquation(
+          data.slope,
+          data.intercept
+        );
+
+  const tablePairs =
+    incorrectType ===
+      "table"
+      ? data.pairs.map(
+          (
+            pair,
+            index
+          ) =>
+            index === 1
+              ? [
                   pair[0],
                   pair[1] + 3
                 ]
-                : pair
-          )
-          : data.pairs;
+              : [
+                  pair[0],
+                  pair[1]
+                ]
+        )
+      : data.pairs;
 
-      const graphPoints =
-        incorrectType === "graph"
-          ? data.inputs.map(
-            input => [
-              input,
-              data.slope * input +
-              wrongIntercept
-            ]
-          )
-          : data.pairs;
-
-      return {
-        type: "detective",
-        incorrectType,
-        equation,
-        tablePairs,
-        graphPoints,
-        correctSlope: data.slope,
-        correctIntercept:
-          data.intercept
-      };
-    }
-
-    function generateMappingChallenge() {
-      const isFunction =
-        Math.random() < 0.5;
-
-      const inputs =
-        uniqueIntegers(
-          4,
-          -5,
-          5
-        ).sort((a, b) => a - b);
-
-      const outputPool =
-        uniqueIntegers(
-          3,
-          -6,
-          7
-        ).sort((a, b) => a - b);
-
-      const arrows =
-        inputs.map(
-          input => ({
+  const graphPoints =
+    incorrectType ===
+      "graph"
+      ? data.inputs.map(
+          input => [
             input,
-            output:
-              choose(outputPool)
-          })
-        );
-
-      if (!isFunction) {
-        const repeatedInput =
-          choose(inputs);
-
-        const currentOutput =
-          arrows.find(
-            arrow =>
-              arrow.input ===
-              repeatedInput
-          ).output;
-
-        const secondOutput =
-          choose(
-            outputPool.filter(
-              output =>
-                output !==
-                currentOutput
-            )
-          );
-
-        arrows.push({
-          input: repeatedInput,
-          output: secondOutput
-        });
-      }
-
-      const range =
-        [
-          ...new Set(
-            arrows.map(
-              arrow =>
-                arrow.output
-            )
-          )
-        ].sort((a, b) => a - b);
-
-      return {
-        type: "mapping",
-        isFunction,
-        inputs,
-        outputs: outputPool,
-        arrows,
-        domain: inputs,
-        range
-      };
-    }
-
-    function generateBossChallenge() {
-      const base =
-        generateLinearData(3);
-
-      const correctOption = {
-        equation:
-          formatEquation(
-            base.slope,
-            base.intercept
-          ),
-
-        pairs:
-          base.pairs,
-
-        graphPoints:
-          base.pairs,
-
-        mappingText:
-          base.pairs
-            .map(
-              pair =>
-                `${pair[0]} → ${pair[1]}`
-            )
-            .join(", "),
-
-        correct: true
-      };
-
-      const wrongEquation = {
-        equation:
-          formatEquation(
-            base.slope,
-            base.intercept + 2
-          ),
-
-        pairs:
-          base.pairs,
-
-        graphPoints:
-          base.pairs,
-
-        mappingText:
-          base.pairs
-            .map(
-              pair =>
-                `${pair[0]} → ${pair[1]}`
-            )
-            .join(", "),
-
-        correct: false
-      };
-
-      const wrongGraphPoints =
-        base.pairs.map(
-          pair => [
-            pair[0],
-            pair[1] - 2
+            data.slope *
+              input +
+              wrongIntercept
           ]
-        );
+        )
+      : data.pairs;
 
-      const wrongGraph = {
-        equation:
-          formatEquation(
-            base.slope,
-            base.intercept
-          ),
+  return {
+    type:
+      "detective",
 
-        pairs:
-          base.pairs,
+    incorrectType,
 
-        graphPoints:
-          wrongGraphPoints,
+    equation,
 
-        mappingText:
-          base.pairs
-            .map(
-              pair =>
-                `${pair[0]} → ${pair[1]}`
-            )
-            .join(", "),
+    tablePairs,
 
-        correct: false
-      };
+    graphPoints,
 
-      const wrongMappingPairs =
-        base.pairs.map(
-          (pair, index) =>
-            index === 2
-              ? [
-                pair[0],
-                pair[1] + 3
-              ]
-              : pair
-        );
+    correctSlope:
+      data.slope,
 
-      const wrongMapping = {
-        equation:
-          formatEquation(
-            base.slope,
-            base.intercept
-          ),
+    correctIntercept:
+      data.intercept
+  };
+}
 
-        pairs:
-          base.pairs,
 
-        graphPoints:
-          base.pairs,
+function generateMappingChallenge() {
+  const isFunction =
+    Math.random() <
+    0.5;
 
-        mappingText:
-          wrongMappingPairs
-            .map(
-              pair =>
-                `${pair[0]} → ${pair[1]}`
-            )
-            .join(", "),
+  const inputs =
+    uniqueIntegers(
+      4,
+      -5,
+      5
+    ).sort(
+      (
+        first,
+        second
+      ) =>
+        first - second
+    );
 
-        correct: false
-      };
+  const outputPool =
+    uniqueIntegers(
+      3,
+      -6,
+      7
+    ).sort(
+      (
+        first,
+        second
+      ) =>
+        first - second
+    );
 
-      return {
-        type: "boss",
-        options:
-          shuffle([
-            correctOption,
-            wrongEquation,
-            wrongGraph,
-            wrongMapping
-          ])
-      };
-    }
+  const arrows =
+    inputs.map(
+      input => ({
+        input,
 
-    function generateChallenges() {
-      return [
-        generateTableChallenge(),
-        generateGraphChallenge(),
-        generateTableCompletionChallenge(),
-        generateDetectiveChallenge(),
-        generateMappingChallenge(),
-        generateBossChallenge()
-      ];
-    }
+        output:
+          choose(
+            outputPool
+          )
+      })
+    );
 
-    function graphSvg(
-      points,
-      label
-    ) {
-      const allX =
-        points.map(point => point[0]);
-
-      const allY =
-        points.map(point => point[1]);
-
-      const maxAbs =
-        Math.max(
-          5,
-          ...allX.map(Math.abs),
-          ...allY.map(Math.abs)
-        );
-
-      const limit =
-        Math.min(
-          14,
-          Math.ceil(maxAbs) + 1
-        );
-
-      const size = 320;
-      const padding = 28;
-      const plotSize =
-        size - 2 * padding;
-
-      function toX(x) {
-        return (
-          padding +
-          (
-            (x + limit) /
-            (2 * limit)
-          ) *
-          plotSize
-        );
-      }
-
-      function toY(y) {
-        return (
-          padding +
-          (
-            (limit - y) /
-            (2 * limit)
-          ) *
-          plotSize
-        );
-      }
-
-      const grid = [];
-
-      for (
-        let value = -limit;
-        value <= limit;
-        value += 1
-      ) {
-        const x = toX(value);
-        const y = toY(value);
-
-        grid.push(`
-          <line
-            x1="${x}"
-            y1="${padding}"
-            x2="${x}"
-            y2="${size - padding}"
-            stroke="#e5ebf0"
-            stroke-width="1"
-          />
-        `);
-
-        grid.push(`
-          <line
-            x1="${padding}"
-            y1="${y}"
-            x2="${size - padding}"
-            y2="${y}"
-            stroke="#e5ebf0"
-            stroke-width="1"
-          />
-        `);
-      }
-
-      const pointMarkup =
-        points.map(
-          point => `
-            <circle
-              cx="${toX(point[0])}"
-              cy="${toY(point[1])}"
-              r="6"
-              fill="#2f7d46"
-              stroke="#0f2d44"
-              stroke-width="2"
-            />
-          `
-        ).join("");
-
-      return `
-        <svg
-          viewBox="0 0 ${size} ${size}"
-          role="img"
-          aria-label="${label}"
-        >
-          <rect
-            x="${padding}"
-            y="${padding}"
-            width="${plotSize}"
-            height="${plotSize}"
-            fill="#ffffff"
-            stroke="#cbd5df"
-            stroke-width="1"
-          />
-
-          ${grid.join("")}
-
-          <line
-            x1="${padding}"
-            y1="${toY(0)}"
-            x2="${size - padding}"
-            y2="${toY(0)}"
-            stroke="#0f2d44"
-            stroke-width="3"
-          />
-
-          <line
-            x1="${toX(0)}"
-            y1="${padding}"
-            x2="${toX(0)}"
-            y2="${size - padding}"
-            stroke="#0f2d44"
-            stroke-width="3"
-          />
-
-          ${pointMarkup}
-        </svg>
-      `;
-    }
-
-    function mappingSvg(
-      inputs,
-      outputs,
-      arrows
-    ) {
-      const height =
-        Math.max(
-          inputs.length,
-          outputs.length
-        ) * 58 + 70;
-
-      const inputY = new Map();
-      const outputY = new Map();
-
-      inputs.forEach(
-        (value, index) => {
-          inputY.set(
-            value,
-            60 + index * 58
-          );
-        }
+  if (
+    !isFunction
+  ) {
+    const repeatedInput =
+      choose(
+        inputs
       );
 
-      outputs.forEach(
-        (value, index) => {
-          outputY.set(
-            value,
-            60 + index * 58
-          );
-        }
+    const currentOutput =
+      arrows.find(
+        arrow =>
+          arrow.input ===
+          repeatedInput
+      ).output;
+
+    const secondOutput =
+      choose(
+        outputPool.filter(
+          output =>
+            output !==
+            currentOutput
+        )
       );
 
-      const arrowMarkup =
+    arrows.push({
+      input:
+        repeatedInput,
+
+      output:
+        secondOutput
+    });
+  }
+
+  const range =
+    [
+      ...new Set(
         arrows.map(
-          arrow => `
-            <line
-              x1="190"
-              y1="${inputY.get(arrow.input)}"
-              x2="510"
-              y2="${outputY.get(arrow.output)}"
-              stroke="#2f7d46"
-              stroke-width="3"
-              marker-end="url(#arrowhead)"
-            />
-          `
-        ).join("");
+          arrow =>
+            arrow.output
+        )
+      )
+    ].sort(
+      (
+        first,
+        second
+      ) =>
+        first - second
+    );
 
-      const inputMarkup =
-        inputs.map(
-          value => `
-            <circle
-              cx="130"
-              cy="${inputY.get(value)}"
-              r="24"
-              fill="#f0f7fb"
-              stroke="#2f80a8"
-              stroke-width="3"
-            />
+  return {
+    type:
+      "mapping",
 
-            <text
-              x="130"
-              y="${inputY.get(value) + 6}"
-              text-anchor="middle"
-              font-family="Arial"
-              font-size="18"
-              font-weight="700"
-              fill="#0f2d44"
-            >
-              ${value}
-            </text>
-          `
-        ).join("");
+    isFunction,
 
-      const outputMarkup =
-        outputs.map(
-          value => `
-            <circle
-              cx="570"
-              cy="${outputY.get(value)}"
-              r="24"
-              fill="#eefaf1"
-              stroke="#2f7d46"
-              stroke-width="3"
-            />
+    inputs,
 
-            <text
-              x="570"
-              y="${outputY.get(value) + 6}"
-              text-anchor="middle"
-              font-family="Arial"
-              font-size="18"
-              font-weight="700"
-              fill="#0f2d44"
-            >
-              ${value}
-            </text>
-          `
-        ).join("");
+    outputs:
+      outputPool,
 
-      return `
-        <svg
-          viewBox="0 0 700 ${height}"
-          role="img"
-          aria-label="Mapping diagram from inputs to outputs"
-        >
-          <defs>
-            <marker
-              id="arrowhead"
-              markerWidth="10"
-              markerHeight="7"
-              refX="9"
-              refY="3.5"
-              orient="auto"
-            >
-              <polygon
-                points="0 0, 10 3.5, 0 7"
-                fill="#2f7d46"
-              />
-            </marker>
-          </defs>
+    arrows,
+
+    domain:
+      inputs,
+
+    range
+  };
+}
+
+
+function generateBossChallenge() {
+  const base =
+    generateLinearData(
+      3
+    );
+
+  const mappingText =
+    base.pairs
+      .map(
+        pair =>
+          `${pair[0]} → ${pair[1]}`
+      )
+      .join(", ");
+
+  const correctOption = {
+    equation:
+      formatEquation(
+        base.slope,
+        base.intercept
+      ),
+
+    pairs:
+      base.pairs,
+
+    graphPoints:
+      base.pairs,
+
+    mappingText,
+
+    correct:
+      true
+  };
+
+  const wrongEquation = {
+    equation:
+      formatEquation(
+        base.slope,
+        base.intercept + 2
+      ),
+
+    pairs:
+      base.pairs,
+
+    graphPoints:
+      base.pairs,
+
+    mappingText,
+
+    correct:
+      false
+  };
+
+  const wrongGraphPoints =
+    base.pairs.map(
+      pair => [
+        pair[0],
+        pair[1] - 2
+      ]
+    );
+
+  const wrongGraph = {
+    equation:
+      formatEquation(
+        base.slope,
+        base.intercept
+      ),
+
+    pairs:
+      base.pairs,
+
+    graphPoints:
+      wrongGraphPoints,
+
+    mappingText,
+
+    correct:
+      false
+  };
+
+  const wrongMappingPairs =
+    base.pairs.map(
+      (
+        pair,
+        index
+      ) =>
+        index === 2
+          ? [
+              pair[0],
+              pair[1] + 3
+            ]
+          : [
+              pair[0],
+              pair[1]
+            ]
+    );
+
+  const wrongMapping = {
+    equation:
+      formatEquation(
+        base.slope,
+        base.intercept
+      ),
+
+    pairs:
+      base.pairs,
+
+    graphPoints:
+      base.pairs,
+
+    mappingText:
+      wrongMappingPairs
+        .map(
+          pair =>
+            `${pair[0]} → ${pair[1]}`
+        )
+        .join(", "),
+
+    correct:
+      false
+  };
+
+  return {
+    type:
+      "boss",
+
+    options:
+      shuffle([
+        correctOption,
+        wrongEquation,
+        wrongGraph,
+        wrongMapping
+      ])
+  };
+}
+
+
+function generateChallenges() {
+  return [
+    generateTableChallenge(),
+    generateGraphChallenge(),
+    generateTableCompletionChallenge(),
+    generateDetectiveChallenge(),
+    generateMappingChallenge(),
+    generateBossChallenge()
+  ];
+}
+
+
+/* ==========================================
+   GRAPH / MAPPING SVG
+========================================== */
+
+function graphSvg(
+  points,
+  label
+) {
+  const allX =
+    points.map(
+      point =>
+        point[0]
+    );
+
+  const allY =
+    points.map(
+      point =>
+        point[1]
+    );
+
+  const maxAbs =
+    Math.max(
+      5,
+      ...allX.map(
+        Math.abs
+      ),
+      ...allY.map(
+        Math.abs
+      )
+    );
+
+  /*
+    Do not cap the axis at 14.
+    Generated functions can legitimately
+    have outputs larger than 14.
+  */
+
+  const limit =
+    Math.max(
+      5,
+      Math.ceil(
+        maxAbs
+      ) + 1
+    );
+
+  const size =
+    320;
+
+  const padding =
+    28;
+
+  const plotSize =
+    size -
+    2 * padding;
+
+  function toX(x) {
+    return (
+      padding +
+      (
+        (x + limit) /
+        (2 * limit)
+      ) *
+      plotSize
+    );
+  }
+
+  function toY(y) {
+    return (
+      padding +
+      (
+        (limit - y) /
+        (2 * limit)
+      ) *
+      plotSize
+    );
+  }
+
+  /*
+    Use fewer grid lines when the numerical
+    range becomes large so the graph remains
+    readable and printable.
+  */
+
+  const gridStep =
+    limit <= 10
+      ? 1
+      : limit <= 20
+        ? 2
+        : 5;
+
+  const grid =
+    [];
+
+  for (
+    let value =
+      -limit;
+    value <=
+      limit;
+    value +=
+      gridStep
+  ) {
+    const x =
+      toX(
+        value
+      );
+
+    const y =
+      toY(
+        value
+      );
+
+    grid.push(`
+      <line
+        x1="${x}"
+        y1="${padding}"
+        x2="${x}"
+        y2="${size - padding}"
+        stroke="#e5ebf0"
+        stroke-width="1"
+      />
+    `);
+
+    grid.push(`
+      <line
+        x1="${padding}"
+        y1="${y}"
+        x2="${size - padding}"
+        y2="${y}"
+        stroke="#e5ebf0"
+        stroke-width="1"
+      />
+    `);
+  }
+
+  const pointMarkup =
+    points
+      .map(
+        point => `
+          <circle
+            cx="${toX(point[0])}"
+            cy="${toY(point[1])}"
+            r="6"
+            fill="#2f7d46"
+            stroke="#0f2d44"
+            stroke-width="2"
+          />
+        `
+      )
+      .join("");
+
+  return `
+    <svg
+      viewBox="0 0 ${size} ${size}"
+      role="img"
+      aria-label="${label}"
+    >
+
+      <rect
+        x="${padding}"
+        y="${padding}"
+        width="${plotSize}"
+        height="${plotSize}"
+        fill="#ffffff"
+        stroke="#cbd5df"
+        stroke-width="1"
+      />
+
+      ${grid.join("")}
+
+      <line
+        x1="${padding}"
+        y1="${toY(0)}"
+        x2="${size - padding}"
+        y2="${toY(0)}"
+        stroke="#0f2d44"
+        stroke-width="3"
+      />
+
+      <line
+        x1="${toX(0)}"
+        y1="${padding}"
+        x2="${toX(0)}"
+        y2="${size - padding}"
+        stroke="#0f2d44"
+        stroke-width="3"
+      />
+
+      ${pointMarkup}
+
+    </svg>
+  `;
+}
+
+
+function mappingSvg(
+  inputs,
+  outputs,
+  arrows
+) {
+  const height =
+    Math.max(
+      inputs.length,
+      outputs.length
+    ) *
+    58 +
+    70;
+
+  const inputY =
+    new Map();
+
+  const outputY =
+    new Map();
+
+  inputs.forEach(
+    (
+      value,
+      index
+    ) => {
+      inputY.set(
+        value,
+        60 +
+        index *
+        58
+      );
+    }
+  );
+
+  outputs.forEach(
+    (
+      value,
+      index
+    ) => {
+      outputY.set(
+        value,
+        60 +
+        index *
+        58
+      );
+    }
+  );
+
+  const arrowMarkup =
+    arrows
+      .map(
+        arrow => `
+          <line
+            x1="190"
+            y1="${inputY.get(arrow.input)}"
+            x2="510"
+            y2="${outputY.get(arrow.output)}"
+            stroke="#2f7d46"
+            stroke-width="3"
+            marker-end="url(#arrowhead)"
+          />
+        `
+      )
+      .join("");
+
+  const inputMarkup =
+    inputs
+      .map(
+        value => `
+          <circle
+            cx="130"
+            cy="${inputY.get(value)}"
+            r="24"
+            fill="#f0f7fb"
+            stroke="#2f80a8"
+            stroke-width="3"
+          />
 
           <text
             x="130"
-            y="28"
+            y="${inputY.get(value) + 6}"
             text-anchor="middle"
             font-family="Arial"
-            font-size="19"
+            font-size="18"
             font-weight="700"
             fill="#0f2d44"
           >
-            Inputs
+            ${value}
           </text>
+        `
+      )
+      .join("");
+
+  const outputMarkup =
+    outputs
+      .map(
+        value => `
+          <circle
+            cx="570"
+            cy="${outputY.get(value)}"
+            r="24"
+            fill="#eefaf1"
+            stroke="#2f7d46"
+            stroke-width="3"
+          />
 
           <text
             x="570"
-            y="28"
+            y="${outputY.get(value) + 6}"
             text-anchor="middle"
             font-family="Arial"
-            font-size="19"
+            font-size="18"
             font-weight="700"
             fill="#0f2d44"
           >
-            Outputs
+            ${value}
           </text>
+        `
+      )
+      .join("");
 
-          ${arrowMarkup}
-          ${inputMarkup}
-          ${outputMarkup}
-        </svg>
-      `;
-    }
+  return `
+    <svg
+      viewBox="0 0 700 ${height}"
+      role="img"
+      aria-label="Mapping diagram from inputs to outputs"
+    >
 
-    function reasoningBox(
-      id,
-      label
-    ) {
-      return `
-        <div class="field">
-          <label for="${id}">
-            ${label}
-          </label>
+      <defs>
+        <marker
+          id="arrowhead"
+          markerWidth="10"
+          markerHeight="7"
+          refX="9"
+          refY="3.5"
+          orient="auto"
+        >
+          <polygon
+            points="0 0, 10 3.5, 0 7"
+            fill="#2f7d46"
+          />
+        </marker>
+      </defs>
 
-          <textarea
-            id="${id}"
-            maxlength="450"
-          ></textarea>
+      <text
+        x="130"
+        y="28"
+        text-anchor="middle"
+        font-family="Arial"
+        font-size="19"
+        font-weight="700"
+        fill="#0f2d44"
+      >
+        Inputs
+      </text>
 
-          <p class="field-help">
-            Use function or representation vocabulary and write at
-            least 20 characters.
-          </p>
-        </div>
-      `;
-    }
+      <text
+        x="570"
+        y="28"
+        text-anchor="middle"
+        font-family="Arial"
+        font-size="19"
+        font-weight="700"
+        fill="#0f2d44"
+      >
+        Outputs
+      </text>
 
-    function renderCurrentChallenge() {
-      const index =
-        state.currentChallenge;
+      ${arrowMarkup}
+      ${inputMarkup}
+      ${outputMarkup}
 
-      const challenge =
-        state.challenges[index];
+    </svg>
+  `;
+}
 
-      document.getElementById(
-        "problemKicker"
-      ).textContent =
-        `Challenge ${index + 1} of 6`;
 
-      document.getElementById(
-        "challengeStatus"
-      ).textContent =
-        `${index + 1} of 6`;
+/* ==========================================
+   RESPONSE STORAGE
+========================================== */
 
-      document.getElementById(
-        "progressText"
-      ).textContent =
-        `Challenge ${index + 1} of 6`;
+function emptyResponseForChallenge(
+  index
+) {
+  if (
+    index === 0
+  ) {
+    return {
+      pairChoice:
+        null,
 
-      document.getElementById(
-        "progressFill"
-      ).style.width =
-        `${index / 6 * 100}%`;
+      tableDomain:
+        "",
 
-      updateProgressStrip();
-
-      if (
-        challenge.type ===
-        "table-pairs"
-      ) {
-        renderTablePairs(challenge);
-      } else if (
-        challenge.type ===
-        "pairs-graph"
-      ) {
-        renderPairsGraph(challenge);
-      } else if (
-        challenge.type ===
-        "complete-table"
-      ) {
-        renderCompleteTable(challenge);
-      } else if (
-        challenge.type ===
-        "detective"
-      ) {
-        renderDetective(challenge);
-      } else if (
-        challenge.type ===
-        "mapping"
-      ) {
-        renderMapping(challenge);
-      } else {
-        renderBoss(challenge);
-      }
-
-      setFeedback(
-        "Complete every response and check your work.",
+      tableRange:
         ""
-      );
+    };
+  }
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+  if (
+    index === 1
+  ) {
+    return {
+      graphChoice:
+        null
+    };
+  }
 
-      announce(
-        `Challenge ${index + 1} of 6 is displayed.`
-      );
-    }
+  if (
+    index === 2
+  ) {
+    return {
+      outputs:
+        [
+          "",
+          "",
+          ""
+        ],
 
-    function updateProgressStrip() {
-      const steps =
-        document.querySelectorAll(
-          ".progress-step"
+      rateAnswer:
+        ""
+    };
+  }
+
+  if (
+    index === 3
+  ) {
+    return {
+      detectiveAnswer:
+        "",
+
+      detectiveReasoning:
+        ""
+    };
+  }
+
+  if (
+    index === 4
+  ) {
+    return {
+      mappingFunction:
+        "",
+
+      mappingDomain:
+        "",
+
+      mappingRange:
+        "",
+
+      mappingReasoning:
+        ""
+    };
+  }
+
+  return {
+    bossChoice:
+      null
+  };
+}
+
+
+function ensureResponses() {
+  if (
+    !Array.isArray(
+      state.responses
+    )
+  ) {
+    state.responses =
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ];
+  }
+
+  while (
+    state.responses.length <
+    6
+  ) {
+    state.responses.push(
+      null
+    );
+  }
+
+  for (
+    let index = 0;
+    index < 6;
+    index += 1
+  ) {
+    if (
+      !state.responses[
+        index
+      ]
+    ) {
+      state.responses[
+        index
+      ] =
+        emptyResponseForChallenge(
+          index
         );
+    }
+  }
+}
 
-      steps.forEach(
-        (step, index) => {
-          step.classList.remove(
-            "complete",
-            "current"
+
+function valueOf(
+  id
+) {
+  const element =
+    document.getElementById(
+      id
+    );
+
+  return element
+    ? String(
+        element.value
+      ).trim()
+    : "";
+}
+
+
+function setValue(
+  id,
+  value
+) {
+  const element =
+    document.getElementById(
+      id
+    );
+
+  if (
+    element
+  ) {
+    element.value =
+      value ?? "";
+  }
+}
+
+
+function selectedRadio(
+  name
+) {
+  const element =
+    document.querySelector(
+      `input[name="${name}"]:checked`
+    );
+
+  return element
+    ? element.value
+    : "";
+}
+
+
+function restoreRadio(
+  name,
+  value
+) {
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return;
+  }
+
+  const element =
+    document.querySelector(
+      `input[name="${name}"][value="${value}"]`
+    );
+
+  if (
+    element
+  ) {
+    element.checked =
+      true;
+  }
+}
+
+
+function captureCurrentResponse() {
+  ensureResponses();
+
+  const index =
+    state.currentChallenge;
+
+  const response =
+    state.responses[
+      index
+    ];
+
+  if (
+    index === 0
+  ) {
+    const selected =
+      selectedRadio(
+        "pairChoice"
+      );
+
+    response.pairChoice =
+      selected === ""
+        ? null
+        : Number(
+            selected
           );
 
-          if (
-            index <
-            state.currentChallenge
-          ) {
-            step.classList.add(
-              "complete"
-            );
-
-            step.textContent =
-              `✓ ${step.textContent.replace("✓ ", "")}`;
-          } else if (
-            index ===
-            state.currentChallenge
-          ) {
-            step.classList.add(
-              "current"
-            );
-          }
-        }
+    response.tableDomain =
+      valueOf(
+        "tableDomain"
       );
-    }
 
-    function renderTablePairs(
+    response.tableRange =
+      valueOf(
+        "tableRange"
+      );
+  }
+
+  if (
+    index === 1
+  ) {
+    const selected =
+      selectedRadio(
+        "graphChoice"
+      );
+
+    response.graphChoice =
+      selected === ""
+        ? null
+        : Number(
+            selected
+          );
+  }
+
+  if (
+    index === 2
+  ) {
+    const challenge =
+      state.challenges[
+        2
+      ];
+
+    response.outputs =
+      challenge.inputs.map(
+        (
+          input,
+          outputIndex
+        ) =>
+          valueOf(
+            `output${outputIndex}`
+          )
+      );
+
+    response.rateAnswer =
+      valueOf(
+        "rateAnswer"
+      );
+  }
+
+  if (
+    index === 3
+  ) {
+    response.detectiveAnswer =
+      valueOf(
+        "detectiveAnswer"
+      );
+
+    response.detectiveReasoning =
+      valueOf(
+        "detectiveReasoning"
+      );
+  }
+
+  if (
+    index === 4
+  ) {
+    response.mappingFunction =
+      selectedRadio(
+        "mappingFunction"
+      );
+
+    response.mappingDomain =
+      valueOf(
+        "mappingDomain"
+      );
+
+    response.mappingRange =
+      valueOf(
+        "mappingRange"
+      );
+
+    response.mappingReasoning =
+      valueOf(
+        "mappingReasoning"
+      );
+  }
+
+  if (
+    index === 5
+  ) {
+    const selected =
+      selectedRadio(
+        "bossChoice"
+      );
+
+    response.bossChoice =
+      selected === ""
+        ? null
+        : Number(
+            selected
+          );
+  }
+}
+
+
+function restoreCurrentResponse() {
+  ensureResponses();
+
+  const index =
+    state.currentChallenge;
+
+  const response =
+    state.responses[
+      index
+    ];
+
+  if (
+    index === 0
+  ) {
+    restoreRadio(
+      "pairChoice",
+      response.pairChoice
+    );
+
+    setValue(
+      "tableDomain",
+      response.tableDomain
+    );
+
+    setValue(
+      "tableRange",
+      response.tableRange
+    );
+  }
+
+  if (
+    index === 1
+  ) {
+    restoreRadio(
+      "graphChoice",
+      response.graphChoice
+    );
+  }
+
+  if (
+    index === 2
+  ) {
+    response.outputs.forEach(
+      (
+        value,
+        outputIndex
+      ) => {
+        setValue(
+          `output${outputIndex}`,
+          value
+        );
+      }
+    );
+
+    setValue(
+      "rateAnswer",
+      response.rateAnswer
+    );
+  }
+
+  if (
+    index === 3
+  ) {
+    setValue(
+      "detectiveAnswer",
+      response.detectiveAnswer
+    );
+
+    setValue(
+      "detectiveReasoning",
+      response.detectiveReasoning
+    );
+  }
+
+  if (
+    index === 4
+  ) {
+    restoreRadio(
+      "mappingFunction",
+      response.mappingFunction
+    );
+
+    setValue(
+      "mappingDomain",
+      response.mappingDomain
+    );
+
+    setValue(
+      "mappingRange",
+      response.mappingRange
+    );
+
+    setValue(
+      "mappingReasoning",
+      response.mappingReasoning
+    );
+  }
+
+  if (
+    index === 5
+  ) {
+    restoreRadio(
+      "bossChoice",
+      response.bossChoice
+    );
+  }
+}
+
+
+function attachAutosave() {
+  problemContent
+    .querySelectorAll(
+      "input, select, textarea"
+    )
+    .forEach(
+      element => {
+        const eventName =
+          (
+            element.type ===
+              "radio" ||
+            element.type ===
+              "checkbox" ||
+            element.tagName ===
+              "SELECT"
+          )
+            ? "change"
+            : "input";
+
+        element.addEventListener(
+          eventName,
+          () => {
+            captureCurrentResponse();
+            saveState();
+          }
+        );
+      }
+    );
+}
+
+
+/* ==========================================
+   STUDENT-FACING BUILDERS
+========================================== */
+
+function reasoningBox(
+  id,
+  label
+) {
+  return `
+    <div class="field">
+
+      <label for="${id}">
+        ${label}
+      </label>
+
+      <textarea
+        id="${id}"
+        maxlength="450"
+      ></textarea>
+
+      <p class="field-help">
+        Use function or representation vocabulary and write at
+        least 20 characters.
+      </p>
+
+    </div>
+  `;
+}
+
+
+/* ==========================================
+   RENDER CURRENT CHALLENGE
+========================================== */
+
+function renderCurrentChallenge() {
+  const index =
+    state.currentChallenge;
+
+  const challenge =
+    state.challenges[
+      index
+    ];
+
+  document.getElementById(
+    "problemKicker"
+  ).textContent =
+    `Challenge ${index + 1} of 6`;
+
+  document.getElementById(
+    "challengeStatus"
+  ).textContent =
+    `${index + 1} of 6`;
+
+  document.getElementById(
+    "progressText"
+  ).textContent =
+    `Challenge ${index + 1} of 6`;
+
+  document.getElementById(
+    "progressFill"
+  ).style.width =
+    `${index / 6 * 100}%`;
+
+  updateProgressStrip();
+
+  if (
+    challenge.type ===
+    "table-pairs"
+  ) {
+    renderTablePairs(
       challenge
-    ) {
-      document.getElementById(
-        "problemTitle"
-      ).textContent =
-        "Table → Ordered Pairs";
+    );
+  } else if (
+    challenge.type ===
+    "pairs-graph"
+  ) {
+    renderPairsGraph(
+      challenge
+    );
+  } else if (
+    challenge.type ===
+    "complete-table"
+  ) {
+    renderCompleteTable(
+      challenge
+    );
+  } else if (
+    challenge.type ===
+    "detective"
+  ) {
+    renderDetective(
+      challenge
+    );
+  } else if (
+    challenge.type ===
+    "mapping"
+  ) {
+    renderMapping(
+      challenge
+    );
+  } else {
+    renderBoss(
+      challenge
+    );
+  }
 
-      problemContent.innerHTML = `
-        <p>
-          Use the table to identify its ordered pairs, domain, and
-          range.
-        </p>
+  restoreCurrentResponse();
+  attachAutosave();
+
+  setFeedback(
+    "Complete every response and check your work.",
+    ""
+  );
+
+  window.scrollTo({
+    top:
+      0,
+
+    behavior:
+      "smooth"
+  });
+
+  announce(
+    `Challenge ${index + 1} of 6 is displayed.`
+  );
+}
+
+
+function updateProgressStrip() {
+  const labels = [
+    "Table",
+    "Graph",
+    "Rule",
+    "Detective",
+    "Mapping",
+    "Match"
+  ];
+
+  const steps =
+    document.querySelectorAll(
+      ".progress-step"
+    );
+
+  steps.forEach(
+    (
+      step,
+      index
+    ) => {
+      step.classList.remove(
+        "complete",
+        "current"
+      );
+
+      step.textContent =
+        labels[
+          index
+        ];
+
+      if (
+        index <
+        state.currentChallenge
+      ) {
+        step.classList.add(
+          "complete"
+        );
+
+        step.textContent =
+          `✓ ${labels[index]}`;
+      } else if (
+        index ===
+        state.currentChallenge
+      ) {
+        step.classList.add(
+          "current"
+        );
+      }
+    }
+  );
+}
+
+
+function renderTablePairs(
+  challenge
+) {
+  document.getElementById(
+    "problemTitle"
+  ).textContent =
+    "Table → Ordered Pairs";
+
+  problemContent.innerHTML = `
+    <p>
+      Use the table to identify its ordered pairs, domain, and range.
+    </p>
+
+    <div class="table-wrap">
+
+      <table class="function-table">
+
+        <thead>
+          <tr>
+            <th scope="col">
+              x
+            </th>
+
+            <th scope="col">
+              f(x)
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${challenge.pairs.map(
+            pair => `
+              <tr>
+                <td>
+                  ${pair[0]}
+                </td>
+
+                <td>
+                  ${pair[1]}
+                </td>
+              </tr>
+            `
+          ).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <fieldset class="field">
+
+      <legend class="field-label">
+        Which ordered-pair set matches the table?
+      </legend>
+
+      <div class="choice-list">
+
+        ${challenge.choices.map(
+          (
+            choice,
+            index
+          ) => `
+            <label class="choice">
+
+              <input
+                type="radio"
+                name="pairChoice"
+                value="${index}"
+              >
+
+              <span>
+                ${choice.text}
+              </span>
+
+            </label>
+          `
+        ).join("")}
+
+      </div>
+
+    </fieldset>
+
+    <div class="input-grid">
+
+      <div class="field">
+
+        <label for="tableDomain">
+          Domain
+        </label>
+
+        <input
+          id="tableDomain"
+          type="text"
+          autocomplete="off"
+          placeholder="{ }"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label for="tableRange">
+          Range
+        </label>
+
+        <input
+          id="tableRange"
+          type="text"
+          autocomplete="off"
+          placeholder="{ }"
+        >
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+function renderPairsGraph(
+  challenge
+) {
+  document.getElementById(
+    "problemTitle"
+  ).textContent =
+    "Ordered Pairs → Graph";
+
+  problemContent.innerHTML = `
+    <p>
+      Select the graph that contains all four ordered pairs.
+    </p>
+
+    <div class="equation-display">
+      ${formatPairs(
+        challenge.pairs
+      )}
+    </div>
+
+    <div class="graph-options">
+
+      ${challenge.graphSets.map(
+        (
+          option,
+          index
+        ) => `
+          <label class="graph-option">
+
+            <span class="graph-label">
+
+              <input
+                type="radio"
+                name="graphChoice"
+                value="${index}"
+              >
+
+              Graph ${String.fromCharCode(65 + index)}
+
+            </span>
+
+            ${graphSvg(
+              option.points,
+              `Graph option ${String.fromCharCode(65 + index)}`
+            )}
+
+          </label>
+        `
+      ).join("")}
+
+    </div>
+  `;
+}
+
+
+function renderCompleteTable(
+  challenge
+) {
+  document.getElementById(
+    "problemTitle"
+  ).textContent =
+    "Complete the Function Table";
+
+  problemContent.innerHTML = `
+    <p>
+      Use the function rule to calculate each missing output.
+    </p>
+
+    <div class="equation-display">
+      ${formatLinearRule(
+        challenge.slope,
+        challenge.intercept
+      )}
+    </div>
+
+    <div class="table-wrap">
+
+      <table class="function-table">
+
+        <thead>
+          <tr>
+            <th scope="col">
+              x
+            </th>
+
+            <th scope="col">
+              f(x)
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${challenge.inputs.map(
+            (
+              input,
+              index
+            ) => `
+              <tr>
+
+                <td>
+                  ${input}
+                </td>
+
+                <td>
+
+                  <label
+                    class="screen-reader-only"
+                    for="output${index}"
+                  >
+                    Output for x equals ${input}
+                  </label>
+
+                  <input
+                    id="output${index}"
+                    type="number"
+                    step="any"
+                    inputmode="decimal"
+                    style="width:110px;padding:8px;"
+                  >
+
+                </td>
+
+              </tr>
+            `
+          ).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="field">
+
+      <label for="rateAnswer">
+        Constant rate of change
+      </label>
+
+      <input
+        id="rateAnswer"
+        type="number"
+        step="any"
+        inputmode="decimal"
+      >
+
+    </div>
+  `;
+}
+
+
+function renderDetective(
+  challenge
+) {
+  document.getElementById(
+    "problemTitle"
+  ).textContent =
+    "Representation Detective";
+
+  problemContent.innerHTML = `
+    <p>
+      Two representations show the same function. One does not.
+      Identify the inconsistent representation.
+    </p>
+
+    <div class="representation-grid">
+
+      <div class="representation-card">
+
+        <h3>
+          Equation
+        </h3>
+
+        <div class="equation-display">
+          ${challenge.equation}
+        </div>
+
+      </div>
+
+      <div class="representation-card">
+
+        <h3>
+          Table
+        </h3>
 
         <div class="table-wrap">
+
           <table class="function-table">
+
             <thead>
               <tr>
-                <th scope="col">
+                <th>
                   x
                 </th>
 
-                <th scope="col">
-                  f(x)
+                <th>
+                  y
                 </th>
               </tr>
             </thead>
 
             <tbody>
-              ${challenge.pairs.map(
+
+              ${challenge.tablePairs.map(
                 pair => `
                   <tr>
                     <td>
@@ -2245,1312 +3891,2493 @@
                   </tr>
                 `
               ).join("")}
+
             </tbody>
+
           </table>
+
         </div>
 
-        <fieldset class="field">
-          <legend class="field-label">
-            Which ordered-pair set matches the table?
-          </legend>
+      </div>
 
-          <div class="choice-list">
-            ${challenge.choices.map(
-              (choice, index) => `
-                <label class="choice">
-                  <input
-                    type="radio"
-                    name="pairChoice"
-                    value="${index}"
-                  >
+      <div class="representation-card">
 
-                  <span>
-                    ${choice.text}
-                  </span>
-                </label>
-              `
-            ).join("")}
-          </div>
-        </fieldset>
+        <h3>
+          Graph
+        </h3>
 
-        <div class="input-grid">
-          <div class="field">
-            <label for="tableDomain">
-              Domain
-            </label>
+        ${graphSvg(
+          challenge.graphPoints,
+          "Function graph for representation detective challenge"
+        )}
 
-            <input
-              id="tableDomain"
-              type="text"
-              autocomplete="off"
-              placeholder="{ }"
-            >
-          </div>
+      </div>
 
-          <div class="field">
-            <label for="tableRange">
-              Range
-            </label>
+    </div>
 
-            <input
-              id="tableRange"
-              type="text"
-              autocomplete="off"
-              placeholder="{ }"
-            >
-          </div>
-        </div>
-      `;
-    }
+    <div class="field">
 
-    function renderPairsGraph(
-      challenge
-    ) {
-      document.getElementById(
-        "problemTitle"
-      ).textContent =
-        "Ordered Pairs → Graph";
+      <label for="detectiveAnswer">
+        Which representation is inconsistent?
+      </label>
 
-      problemContent.innerHTML = `
-        <p>
-          Select the graph that contains all four ordered pairs.
-        </p>
+      <select id="detectiveAnswer">
 
-        <div class="equation-display">
-          ${formatPairs(
-            challenge.pairs
-          )}
-        </div>
+        <option value="">
+          Select a representation
+        </option>
 
-        <div class="graph-options">
-          ${challenge.graphSets.map(
-            (option, index) => `
-              <label class="graph-option">
-                <span class="graph-label">
-                  <input
-                    type="radio"
-                    name="graphChoice"
-                    value="${index}"
-                  >
-                  Graph ${String.fromCharCode(65 + index)}
-                </span>
+        <option value="equation">
+          Equation
+        </option>
 
-                ${graphSvg(
-                  option.points,
-                  `Graph option ${String.fromCharCode(65 + index)}`
-                )}
-              </label>
-            `
-          ).join("")}
-        </div>
-      `;
-    }
+        <option value="table">
+          Table
+        </option>
 
-    function renderCompleteTable(
-      challenge
-    ) {
-      document.getElementById(
-        "problemTitle"
-      ).textContent =
-        "Complete the Function Table";
+        <option value="graph">
+          Graph
+        </option>
 
-      problemContent.innerHTML = `
-        <p>
-          Use the function rule to calculate each missing output.
-        </p>
+      </select>
 
-        <div class="equation-display">
-          ${formatLinearRule(
-            challenge.slope,
-            challenge.intercept
-          )}
-        </div>
+    </div>
 
-        <div class="table-wrap">
-          <table class="function-table">
-            <thead>
-              <tr>
-                <th scope="col">
-                  x
-                </th>
+    ${reasoningBox(
+      "detectiveReasoning",
+      "Explain how you identified the mismatch."
+    )}
+  `;
+}
 
-                <th scope="col">
-                  f(x)
-                </th>
-              </tr>
-            </thead>
 
-            <tbody>
-              ${challenge.inputs.map(
-                (input, index) => `
-                  <tr>
-                    <td>
-                      ${input}
-                    </td>
+function renderMapping(
+  challenge
+) {
+  document.getElementById(
+    "problemTitle"
+  ).textContent =
+    "Interpret a Mapping Diagram";
 
-                    <td>
-                      <label
-                        class="screen-reader-only"
-                        for="output${index}"
-                      >
-                        Output for x equals ${input}
-                      </label>
+  problemContent.innerHTML = `
+    <p>
+      Use the mapping diagram to determine whether the relation is
+      a function and identify its domain and range.
+    </p>
 
-                      <input
-                        id="output${index}"
-                        type="number"
-                        step="any"
-                        inputmode="decimal"
-                        style="width: 110px; padding: 8px;"
-                      >
-                    </td>
-                  </tr>
-                `
-              ).join("")}
-            </tbody>
-          </table>
-        </div>
+    <div class="mapping-wrap">
 
-        <div class="field">
-          <label for="rateAnswer">
-            Constant rate of change
-          </label>
+      ${mappingSvg(
+        challenge.inputs,
+        challenge.outputs,
+        challenge.arrows
+      )}
+
+    </div>
+
+    <fieldset class="field">
+
+      <legend class="field-label">
+        Is this relation a function?
+      </legend>
+
+      <div class="choice-list">
+
+        <label class="choice">
 
           <input
-            id="rateAnswer"
-            type="number"
-            step="any"
-            inputmode="decimal"
+            type="radio"
+            name="mappingFunction"
+            value="yes"
           >
-        </div>
-      `;
-    }
 
-    function renderDetective(
-      challenge
-    ) {
-      document.getElementById(
-        "problemTitle"
-      ).textContent =
-        "Representation Detective";
+          <span>
+            Yes, it is a function.
+          </span>
 
-      problemContent.innerHTML = `
-        <p>
-          Two representations show the same function. One does not.
-          Identify the inconsistent representation.
-        </p>
+        </label>
 
-        <div class="representation-grid">
-          <div class="representation-card">
-            <h3>
-              Equation
-            </h3>
+        <label class="choice">
 
-            <div class="equation-display">
-              ${challenge.equation}
-            </div>
-          </div>
+          <input
+            type="radio"
+            name="mappingFunction"
+            value="no"
+          >
 
-          <div class="representation-card">
-            <h3>
-              Table
-            </h3>
+          <span>
+            No, it is not a function.
+          </span>
 
-            <div class="table-wrap">
-              <table class="function-table">
-                <thead>
-                  <tr>
-                    <th>
-                      x
-                    </th>
+        </label>
 
-                    <th>
-                      y
-                    </th>
-                  </tr>
-                </thead>
+      </div>
 
-                <tbody>
-                  ${challenge.tablePairs.map(
-                    pair => `
-                      <tr>
-                        <td>
-                          ${pair[0]}
-                        </td>
+    </fieldset>
 
-                        <td>
-                          ${pair[1]}
-                        </td>
-                      </tr>
-                    `
-                  ).join("")}
-                </tbody>
-              </table>
-            </div>
-          </div>
+    <div class="input-grid">
 
-          <div class="representation-card">
-            <h3>
-              Graph
-            </h3>
+      <div class="field">
 
-            ${graphSvg(
-              challenge.graphPoints,
-              "Function graph for representation detective challenge"
-            )}
-          </div>
-        </div>
+        <label for="mappingDomain">
+          Domain
+        </label>
 
-        <div class="field">
-          <label for="detectiveAnswer">
-            Which representation is inconsistent?
+        <input
+          id="mappingDomain"
+          type="text"
+          autocomplete="off"
+          placeholder="{ }"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label for="mappingRange">
+          Range
+        </label>
+
+        <input
+          id="mappingRange"
+          type="text"
+          autocomplete="off"
+          placeholder="{ }"
+        >
+
+      </div>
+
+    </div>
+
+    ${reasoningBox(
+      "mappingReasoning",
+      "Explain why the mapping is or is not a function."
+    )}
+  `;
+}
+
+
+function renderBoss(
+  challenge
+) {
+  document.getElementById(
+    "problemTitle"
+  ).textContent =
+    "Representation Match";
+
+  problemContent.innerHTML = `
+    <div class="callout callout-purple">
+
+      <h3>
+        Final Challenge
+      </h3>
+
+      <p style="margin-bottom:0;">
+        Select the option in which the equation, ordered pairs,
+        graph, and mapping all represent the same function.
+      </p>
+
+    </div>
+
+    <div class="boss-options">
+
+      ${challenge.options.map(
+        (
+          option,
+          index
+        ) => `
+          <label class="boss-option">
+
+            <span class="boss-option-header">
+
+              <input
+                type="radio"
+                name="bossChoice"
+                value="${index}"
+              >
+
+              Option ${String.fromCharCode(65 + index)}
+
+            </span>
+
+            <span class="boss-grid">
+
+              <span class="boss-cell">
+
+                <strong>
+                  Equation
+                </strong>
+
+                ${option.equation}
+
+              </span>
+
+              <span class="boss-cell">
+
+                <strong>
+                  Ordered Pairs
+                </strong>
+
+                ${formatPairs(
+                  option.pairs
+                )}
+
+              </span>
+
+              <span class="boss-cell">
+
+                <strong>
+                  Graph
+                </strong>
+
+                ${graphSvg(
+                  option.graphPoints,
+                  `Graph in option ${String.fromCharCode(65 + index)}`
+                )}
+
+              </span>
+
+              <span class="boss-cell">
+
+                <strong>
+                  Mapping
+                </strong>
+
+                ${option.mappingText}
+
+              </span>
+
+            </span>
+
           </label>
+        `
+      ).join("")}
 
-          <select id="detectiveAnswer">
-            <option value="">
-              Select a representation
-            </option>
+    </div>
+  `;
+}
 
-            <option value="equation">
-              Equation
-            </option>
 
-            <option value="table">
-              Table
-            </option>
+/* ==========================================
+   VALIDATION
+========================================== */
 
-            <option value="graph">
-              Graph
-            </option>
-          </select>
-        </div>
+function parseSet(
+  text
+) {
+  const matches =
+    text.match(
+      /-?\d+(?:\.\d+)?/g
+    );
 
-        ${reasoningBox(
-          "detectiveReasoning",
-          "Explain how you identified the mismatch."
-        )}
-      `;
-    }
+  if (
+    !matches
+  ) {
+    return [];
+  }
 
-    function renderMapping(
-      challenge
-    ) {
-      document.getElementById(
-        "problemTitle"
-      ).textContent =
-        "Interpret a Mapping Diagram";
-
-      problemContent.innerHTML = `
-        <p>
-          Use the mapping diagram to determine whether the relation is
-          a function and identify its domain and range.
-        </p>
-
-        <div class="mapping-wrap">
-          ${mappingSvg(
-            challenge.inputs,
-            challenge.outputs,
-            challenge.arrows
-          )}
-        </div>
-
-        <fieldset class="field">
-          <legend class="field-label">
-            Is this relation a function?
-          </legend>
-
-          <div class="choice-list">
-            <label class="choice">
-              <input
-                type="radio"
-                name="mappingFunction"
-                value="yes"
-              >
-
-              <span>
-                Yes, it is a function.
-              </span>
-            </label>
-
-            <label class="choice">
-              <input
-                type="radio"
-                name="mappingFunction"
-                value="no"
-              >
-
-              <span>
-                No, it is not a function.
-              </span>
-            </label>
-          </div>
-        </fieldset>
-
-        <div class="input-grid">
-          <div class="field">
-            <label for="mappingDomain">
-              Domain
-            </label>
-
-            <input
-              id="mappingDomain"
-              type="text"
-              autocomplete="off"
-              placeholder="{ }"
-            >
-          </div>
-
-          <div class="field">
-            <label for="mappingRange">
-              Range
-            </label>
-
-            <input
-              id="mappingRange"
-              type="text"
-              autocomplete="off"
-              placeholder="{ }"
-            >
-          </div>
-        </div>
-
-        ${reasoningBox(
-          "mappingReasoning",
-          "Explain why the mapping is or is not a function."
-        )}
-      `;
-    }
-
-    function renderBoss(
-      challenge
-    ) {
-      document.getElementById(
-        "problemTitle"
-      ).textContent =
-        "Representation Match";
-
-      problemContent.innerHTML = `
-        <div class="callout callout-purple">
-          <h3>
-            Final Challenge
-          </h3>
-
-          <p style="margin-bottom: 0;">
-            Select the option in which the equation, ordered pairs,
-            graph, and mapping all represent the same function.
-          </p>
-        </div>
-
-        <div class="boss-options">
-          ${challenge.options.map(
-            (option, index) => `
-              <label class="boss-option">
-                <span class="boss-option-header">
-                  <input
-                    type="radio"
-                    name="bossChoice"
-                    value="${index}"
-                  >
-
-                  Option ${String.fromCharCode(65 + index)}
-                </span>
-
-                <span class="boss-grid">
-                  <span class="boss-cell">
-                    <strong>
-                      Equation
-                    </strong>
-
-                    ${option.equation}
-                  </span>
-
-                  <span class="boss-cell">
-                    <strong>
-                      Ordered Pairs
-                    </strong>
-
-                    ${formatPairs(
-                      option.pairs
-                    )}
-                  </span>
-
-                  <span class="boss-cell">
-                    <strong>
-                      Graph
-                    </strong>
-
-                    ${graphSvg(
-                      option.graphPoints,
-                      `Graph in option ${String.fromCharCode(65 + index)}`
-                    )}
-                  </span>
-
-                  <span class="boss-cell">
-                    <strong>
-                      Mapping
-                    </strong>
-
-                    ${option.mappingText}
-                  </span>
-                </span>
-              </label>
-            `
-          ).join("")}
-        </div>
-      `;
-    }
-
-    function selectedRadio(name) {
-      const element =
-        document.querySelector(
-          `input[name="${name}"]:checked`
-        );
-
-      return element
-        ? element.value
-        : "";
-    }
-
-    function parseSet(text) {
-      const matches =
-        text.match(
-          /-?\d+(?:\.\d+)?/g
-        );
-
-      if (!matches) {
-        return [];
-      }
-
-      return [
-        ...new Set(
-          matches.map(Number)
-        )
-      ].sort((a, b) => a - b);
-    }
-
-    function arraysEqual(
+  return [
+    ...new Set(
+      matches.map(
+        Number
+      )
+    )
+  ].sort(
+    (
       first,
       second
-    ) {
-      return (
-        first.length ===
-          second.length &&
-        first.every(
-          (value, index) =>
-            value ===
-            second[index]
-        )
+    ) =>
+      first - second
+  );
+}
+
+
+function arraysEqual(
+  first,
+  second
+) {
+  return (
+    first.length ===
+      second.length &&
+
+    first.every(
+      (
+        value,
+        index
+      ) =>
+        value ===
+        second[index]
+    )
+  );
+}
+
+
+function reasoningIsValid(
+  id
+) {
+  const element =
+    document.getElementById(
+      id
+    );
+
+  if (
+    !element
+  ) {
+    return false;
+  }
+
+  const text =
+    element.value
+      .toLowerCase()
+      .trim();
+
+  if (
+    text.length <
+    20
+  ) {
+    return false;
+  }
+
+  const vocabulary = [
+    "equation",
+    "table",
+    "graph",
+    "point",
+    "ordered pair",
+    "input",
+    "output",
+    "function",
+    "slope",
+    "rate",
+    "intercept",
+    "mapping",
+    "same",
+    "different",
+    "arrow"
+  ];
+
+  return vocabulary.some(
+    word =>
+      text.includes(
+        word
+      )
+  );
+}
+
+
+function checkTablePairs(
+  challenge
+) {
+  const selected =
+    selectedRadio(
+      "pairChoice"
+    );
+
+  if (
+    selected === ""
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Select the ordered-pair set that matches the table."
+    };
+  }
+
+  if (
+    !challenge.choices[
+      Number(
+        selected
+      )
+    ].correct
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "That ordered-pair set does not match every row of the table."
+    };
+  }
+
+  const domain =
+    parseSet(
+      valueOf(
+        "tableDomain"
+      )
+    );
+
+  const range =
+    parseSet(
+      valueOf(
+        "tableRange"
+      )
+    );
+
+  if (
+    !arraysEqual(
+      domain,
+      challenge.domain
+    )
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Recheck the domain. The domain contains the table’s input values."
+    };
+  }
+
+  if (
+    !arraysEqual(
+      range,
+      challenge.range
+    )
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Recheck the range. The range contains each distinct table output."
+    };
+  }
+
+  return {
+    valid:
+      true
+  };
+}
+
+
+function checkPairsGraph(
+  challenge
+) {
+  const selected =
+    selectedRadio(
+      "graphChoice"
+    );
+
+  if (
+    selected === ""
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Select the graph that contains all four ordered pairs."
+    };
+  }
+
+  if (
+    !challenge.graphSets[
+      Number(
+        selected
+      )
+    ].correct
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "That graph does not place every point at the listed x- and y-coordinates."
+    };
+  }
+
+  return {
+    valid:
+      true
+  };
+}
+
+
+function checkCompleteTable(
+  challenge
+) {
+  for (
+    let index = 0;
+    index <
+      challenge.outputs.length;
+    index += 1
+  ) {
+    const input =
+      document.getElementById(
+        `output${index}`
       );
+
+    if (
+      !input ||
+      input.value.trim() ===
+        ""
+    ) {
+      return {
+        valid:
+          false,
+
+        message:
+          "Enter every missing output in the table."
+      };
     }
 
-    function reasoningIsValid(id) {
-      const text =
-        document.getElementById(id)
-          .value
-          .toLowerCase()
-          .trim();
+    if (
+      Number(
+        input.value
+      ) !==
+      challenge.outputs[
+        index
+      ]
+    ) {
+      return {
+        valid:
+          false,
 
-      if (text.length < 20) {
-        return false;
-      }
+        message:
+          "At least one output is incorrect. Substitute each input into the function rule again."
+      };
+    }
+  }
 
-      const vocabulary = [
-        "equation",
-        "table",
-        "graph",
-        "point",
-        "ordered pair",
-        "input",
-        "output",
-        "function",
-        "slope",
-        "rate",
-        "intercept",
-        "mapping",
-        "same",
-        "different"
+  const rate =
+    document.getElementById(
+      "rateAnswer"
+    );
+
+  if (
+    !rate ||
+    rate.value.trim() ===
+      ""
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Enter the function’s constant rate of change."
+    };
+  }
+
+  if (
+    Number(
+      rate.value
+    ) !==
+    challenge.slope
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Recheck the constant change in output for each one-unit change in input."
+    };
+  }
+
+  return {
+    valid:
+      true
+  };
+}
+
+
+function checkDetective(
+  challenge
+) {
+  const answer =
+    valueOf(
+      "detectiveAnswer"
+    );
+
+  if (
+    answer === ""
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Select the inconsistent representation."
+    };
+  }
+
+  if (
+    answer !==
+    challenge.incorrectType
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "That representation is consistent with one of the others. Compare the points, slope, and intercept again."
+    };
+  }
+
+  if (
+    !reasoningIsValid(
+      "detectiveReasoning"
+    )
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Expand your explanation using equation, table, graph, point, slope, or intercept vocabulary."
+    };
+  }
+
+  return {
+    valid:
+      true
+  };
+}
+
+
+function checkMapping(
+  challenge
+) {
+  const answer =
+    selectedRadio(
+      "mappingFunction"
+    );
+
+  if (
+    answer === ""
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Select whether the mapping is a function."
+    };
+  }
+
+  const expected =
+    challenge.isFunction
+      ? "yes"
+      : "no";
+
+  if (
+    answer !==
+    expected
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Recheck whether each input is connected to exactly one output."
+    };
+  }
+
+  const domain =
+    parseSet(
+      valueOf(
+        "mappingDomain"
+      )
+    );
+
+  const range =
+    parseSet(
+      valueOf(
+        "mappingRange"
+      )
+    );
+
+  if (
+    !arraysEqual(
+      domain,
+      challenge.domain
+    )
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Recheck the mapping’s input values."
+    };
+  }
+
+  if (
+    !arraysEqual(
+      range,
+      challenge.range
+    )
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Recheck which output values actually receive an arrow."
+    };
+  }
+
+  if (
+    !reasoningIsValid(
+      "mappingReasoning"
+    )
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Expand your explanation using input, output, arrow, or function vocabulary."
+    };
+  }
+
+  return {
+    valid:
+      true
+  };
+}
+
+
+function checkBoss(
+  challenge
+) {
+  const selected =
+    selectedRadio(
+      "bossChoice"
+    );
+
+  if (
+    selected === ""
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "Select the option whose four representations all match."
+    };
+  }
+
+  if (
+    !challenge.options[
+      Number(
+        selected
+      )
+    ].correct
+  ) {
+    return {
+      valid:
+        false,
+
+      message:
+        "At least one representation in that option does not match the others. Check the equation against every ordered pair."
+    };
+  }
+
+  return {
+    valid:
+      true
+  };
+}
+
+
+/* ==========================================
+   CHECK CURRENT
+========================================== */
+
+function checkCurrentChallenge() {
+  captureCurrentResponse();
+
+  state.totalChecks +=
+    1;
+
+  document.getElementById(
+    "checksStatus"
+  ).textContent =
+    String(
+      state.totalChecks
+    );
+
+  const challenge =
+    state.challenges[
+      state.currentChallenge
+    ];
+
+  let result;
+
+  if (
+    challenge.type ===
+    "table-pairs"
+  ) {
+    result =
+      checkTablePairs(
+        challenge
+      );
+  } else if (
+    challenge.type ===
+    "pairs-graph"
+  ) {
+    result =
+      checkPairsGraph(
+        challenge
+      );
+  } else if (
+    challenge.type ===
+    "complete-table"
+  ) {
+    result =
+      checkCompleteTable(
+        challenge
+      );
+  } else if (
+    challenge.type ===
+    "detective"
+  ) {
+    result =
+      checkDetective(
+        challenge
+      );
+  } else if (
+    challenge.type ===
+    "mapping"
+  ) {
+    result =
+      checkMapping(
+        challenge
+      );
+  } else {
+    result =
+      checkBoss(
+        challenge
+      );
+  }
+
+  if (
+    !result.valid
+  ) {
+    setFeedback(
+      result.message,
+      "error"
+    );
+
+    saveState();
+
+    return;
+  }
+
+  state.mastered[
+    state.currentChallenge
+  ] =
+    true;
+
+  if (
+    state.currentChallenge <
+    5
+  ) {
+    setFeedback(
+      "Challenge mastered. Loading the next representation.",
+      "success"
+    );
+
+    state.currentChallenge +=
+      1;
+
+    saveState();
+
+    window.setTimeout(
+      renderCurrentChallenge,
+      650
+    );
+
+    return;
+  }
+
+  state.completedAt =
+    new Date()
+      .toISOString();
+
+  saveState();
+  showCompletion();
+}
+
+
+function setFeedback(
+  message,
+  type
+) {
+  problemFeedback.className =
+    `feedback ${type}`.trim();
+
+  problemFeedback.textContent =
+    message;
+
+  announce(
+    message
+  );
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+function startActivity() {
+  const firstName =
+    document.getElementById(
+      "firstName"
+    ).value.trim();
+
+  const lastName =
+    document.getElementById(
+      "lastName"
+    ).value.trim();
+
+  if (
+    firstName.length <
+      2 ||
+    lastName.length <
+      2
+  ) {
+    const feedback =
+      document.getElementById(
+        "welcomeFeedback"
+      );
+
+    feedback.textContent =
+      "Enter both your first and last name before beginning.";
+
+    feedback.classList.remove(
+      "hidden"
+    );
+
+    return;
+  }
+
+  state.firstName =
+    firstName;
+
+  state.lastName =
+    lastName;
+
+  state.studentName =
+    `${firstName} ${lastName}`;
+
+  state.startedAt =
+    new Date()
+      .toISOString();
+
+  state.completedAt =
+    null;
+
+  state.currentChallenge =
+    0;
+
+  state.totalChecks =
+    0;
+
+  state.mastered = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+
+  state.responses = [
+    emptyResponseForChallenge(0),
+    emptyResponseForChallenge(1),
+    emptyResponseForChallenge(2),
+    emptyResponseForChallenge(3),
+    emptyResponseForChallenge(4),
+    emptyResponseForChallenge(5)
+  ];
+
+  state.challenges =
+    generateChallenges();
+
+  document.getElementById(
+    "studentStatus"
+  ).textContent =
+    state.studentName;
+
+  document.getElementById(
+    "checksStatus"
+  ).textContent =
+    "0";
+
+  welcomeScreen.classList.add(
+    "hidden"
+  );
+
+  activityScreen.classList.remove(
+    "hidden"
+  );
+
+  renderCurrentChallenge();
+
+  state.timerId =
+    window.setInterval(
+      updateTimer,
+      1000
+    );
+
+  updateTimer();
+  saveState();
+}
+
+
+/* ==========================================
+   TIME / DATES
+========================================== */
+
+function updateTimer() {
+  if (
+    !state.startedAt
+  ) {
+    return;
+  }
+
+  const end =
+    state.completedAt
+      ? new Date(
+          state.completedAt
+        ).getTime()
+      : Date.now();
+
+  document.getElementById(
+    "elapsedStatus"
+  ).textContent =
+    formatElapsed(
+      end -
+      new Date(
+        state.startedAt
+      ).getTime()
+    );
+}
+
+
+function formatElapsed(
+  milliseconds
+) {
+  const totalSeconds =
+    Math.max(
+      0,
+      Math.floor(
+        milliseconds /
+        1000
+      )
+    );
+
+  const hours =
+    Math.floor(
+      totalSeconds /
+      3600
+    );
+
+  const minutes =
+    Math.floor(
+      (
+        totalSeconds %
+        3600
+      ) / 60
+    );
+
+  const seconds =
+    totalSeconds %
+    60;
+
+  if (
+    hours > 0
+  ) {
+    return [
+      hours,
+
+      String(
+        minutes
+      ).padStart(
+        2,
+        "0"
+      ),
+
+      String(
+        seconds
+      ).padStart(
+        2,
+        "0"
+      )
+    ].join(":");
+  }
+
+  return [
+    String(
+      minutes
+    ).padStart(
+      2,
+      "0"
+    ),
+
+    String(
+      seconds
+    ).padStart(
+      2,
+      "0"
+    )
+  ].join(":");
+}
+
+
+function formatDateTime(
+  iso
+) {
+  return new Intl.DateTimeFormat(
+    "en-US",
+    {
+      dateStyle:
+        "medium",
+
+      timeStyle:
+        "short"
+    }
+  ).format(
+    new Date(
+      iso
+    )
+  );
+}
+
+
+function formatDateOnly(
+  iso
+) {
+  return new Intl.DateTimeFormat(
+    "en-US",
+    {
+      dateStyle:
+        "long"
+    }
+  ).format(
+    new Date(
+      iso
+    )
+  );
+}
+
+
+/* ==========================================
+   SAVE / RESTORE
+========================================== */
+
+function saveState() {
+  try {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        firstName:
+          state.firstName,
+
+        lastName:
+          state.lastName,
+
+        studentName:
+          state.studentName,
+
+        startedAt:
+          state.startedAt,
+
+        completedAt:
+          state.completedAt,
+
+        currentChallenge:
+          state.currentChallenge,
+
+        totalChecks:
+          state.totalChecks,
+
+        challenges:
+          state.challenges,
+
+        mastered:
+          state.mastered,
+
+        responses:
+          state.responses
+      })
+    );
+  } catch (
+    error
+  ) {
+    console.warn(
+      "Local storage is unavailable.",
+      error
+    );
+  }
+}
+
+
+function restoreState() {
+  try {
+    const stored =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+    if (
+      !stored
+    ) {
+      return false;
+    }
+
+    const saved =
+      JSON.parse(
+        stored
+      );
+
+    if (
+      !saved.studentName ||
+      !saved.startedAt ||
+      !Array.isArray(
+        saved.challenges
+      ) ||
+      saved.challenges.length !==
+        6
+    ) {
+      return false;
+    }
+
+    Object.assign(
+      state,
+      saved
+    );
+
+    ensureResponses();
+
+    document.getElementById(
+      "studentStatus"
+    ).textContent =
+      state.studentName;
+
+    document.getElementById(
+      "checksStatus"
+    ).textContent =
+      String(
+        state.totalChecks
+      );
+
+    welcomeScreen.classList.add(
+      "hidden"
+    );
+
+    if (
+      state.completedAt
+    ) {
+      showCompletion();
+
+      return true;
+    }
+
+    activityScreen.classList.remove(
+      "hidden"
+    );
+
+    renderCurrentChallenge();
+
+    state.timerId =
+      window.setInterval(
+        updateTimer,
+        1000
+      );
+
+    updateTimer();
+
+    return true;
+  } catch (
+    error
+  ) {
+    console.warn(
+      "Saved work could not be restored.",
+      error
+    );
+
+    return false;
+  }
+}
+
+
+/* ==========================================
+   VERIFICATION
+========================================== */
+
+function simpleHash(
+  text
+) {
+  let hash =
+    2166136261;
+
+  for (
+    let index = 0;
+    index <
+      text.length;
+    index += 1
+  ) {
+    hash ^=
+      text.charCodeAt(
+        index
+      );
+
+    hash =
+      Math.imul(
+        hash,
+        16777619
+      );
+  }
+
+  return (
+    hash >>> 0
+  )
+    .toString(36)
+    .toUpperCase()
+    .padStart(
+      7,
+      "0"
+    );
+}
+
+
+function createVerificationCode() {
+  const source = [
+    state.studentName,
+    state.startedAt,
+    state.completedAt,
+    state.totalChecks,
+
+    JSON.stringify(
+      state.challenges
+    ),
+
+    JSON.stringify(
+      state.responses
+    ),
+
+    ACTIVITY_VERSION
+  ].join("::");
+
+  const dateCode =
+    new Date(
+      state.completedAt
+    )
+      .toISOString()
+      .slice(
+        0,
+        10
+      )
+      .replaceAll(
+        "-",
+        ""
+      );
+
+  return (
+    `REP-${dateCode}-` +
+    simpleHash(
+      source
+    )
+  );
+}
+
+
+/* ==========================================
+   REPORT HELPERS
+========================================== */
+
+function setReportText(
+  id,
+  value
+) {
+  const element =
+    document.getElementById(
+      id
+    );
+
+  if (
+    element
+  ) {
+    element.textContent =
+      value || "—";
+  }
+}
+
+
+function addReportField(
+  parent,
+  label,
+  value
+) {
+  const heading =
+    document.createElement(
+      "p"
+    );
+
+  heading.className =
+    "report-label";
+
+  heading.textContent =
+    label;
+
+  const response =
+    document.createElement(
+      "div"
+    );
+
+  response.className =
+    "report-response";
+
+  response.textContent =
+    value || "—";
+
+  parent.append(
+    heading,
+    response
+  );
+}
+
+
+function createReportSection(
+  className,
+  title
+) {
+  const section =
+    document.createElement(
+      "section"
+    );
+
+  section.className =
+    `report-section ${className}`;
+
+  const heading =
+    document.createElement(
+      "h2"
+    );
+
+  heading.textContent =
+    title;
+
+  section.appendChild(
+    heading
+  );
+
+  return section;
+}
+
+
+function addTableToReport(
+  parent,
+  pairs,
+  secondHeading =
+    "f(x)"
+) {
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+  wrapper.className =
+    "table-wrap";
+
+  const table =
+    document.createElement(
+      "table"
+    );
+
+  table.className =
+    "function-table";
+
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>x</th>
+        <th>${secondHeading}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      ${pairs.map(
+        pair => `
+          <tr>
+            <td>
+              ${pair[0]}
+            </td>
+
+            <td>
+              ${pair[1]}
+            </td>
+          </tr>
+        `
+      ).join("")}
+    </tbody>
+  `;
+
+  wrapper.appendChild(
+    table
+  );
+
+  parent.appendChild(
+    wrapper
+  );
+}
+
+
+function addGraphToReport(
+  parent,
+  points,
+  label
+) {
+  const graph =
+    document.createElement(
+      "div"
+    );
+
+  graph.className =
+    "report-graph";
+
+  graph.innerHTML =
+    graphSvg(
+      points,
+      label
+    );
+
+  parent.appendChild(
+    graph
+  );
+}
+
+
+/* ==========================================
+   BUILD FINAL REPORT
+========================================== */
+
+function buildChallengeReports() {
+  ensureResponses();
+
+  const container =
+    document.getElementById(
+      "challengeReports"
+    );
+
+  container.innerHTML =
+    "";
+
+
+  /* --------------------------------
+     Challenge 1
+  -------------------------------- */
+
+  {
+    const challenge =
+      state.challenges[
+        0
       ];
 
-      return vocabulary.some(
-        word =>
-          text.includes(word)
+    const response =
+      state.responses[
+        0
+      ];
+
+    const section =
+      createReportSection(
+        "green",
+        "Challenge 1: Table → Ordered Pairs"
       );
-    }
 
-    function checkCurrentChallenge() {
-      state.totalChecks += 1;
+    const intro =
+      document.createElement(
+        "p"
+      );
 
-      document.getElementById(
-        "checksStatus"
-      ).textContent =
-        String(state.totalChecks);
+    intro.textContent =
+      "Use the table to identify its ordered pairs, domain, and range.";
 
-      const challenge =
-        state.challenges[
-          state.currentChallenge
-        ];
+    section.appendChild(
+      intro
+    );
 
-      let result;
+    addTableToReport(
+      section,
+      challenge.pairs
+    );
 
-      if (
-        challenge.type ===
-        "table-pairs"
-      ) {
-        result =
-          checkTablePairs(challenge);
-      } else if (
-        challenge.type ===
-        "pairs-graph"
-      ) {
-        result =
-          checkPairsGraph(challenge);
-      } else if (
-        challenge.type ===
-        "complete-table"
-      ) {
-        result =
-          checkCompleteTable(challenge);
-      } else if (
-        challenge.type ===
-        "detective"
-      ) {
-        result =
-          checkDetective(challenge);
-      } else if (
-        challenge.type ===
-        "mapping"
-      ) {
-        result =
-          checkMapping(challenge);
-      } else {
-        result =
-          checkBoss(challenge);
-      }
+    let selectedPairs =
+      "—";
 
-      if (!result.valid) {
-        setFeedback(
-          result.message,
-          "error"
-        );
-
-        return;
-      }
-
-      if (
-        state.currentChallenge < 5
-      ) {
-        setFeedback(
-          "Challenge mastered. Loading the next representation.",
-          "success"
-        );
-
-        state.currentChallenge += 1;
-
-        window.setTimeout(
-          renderCurrentChallenge,
-          650
-        );
-
-        return;
-      }
-
-      state.completedAt =
-        new Date().toISOString();
-
-      showCompletion();
-    }
-
-    function checkTablePairs(
-      challenge
+    if (
+      response.pairChoice !==
+        null &&
+      challenge.choices[
+        response.pairChoice
+      ]
     ) {
-      const selected =
-        selectedRadio(
-          "pairChoice"
-        );
-
-      if (selected === "") {
-        return {
-          valid: false,
-          message:
-            "Select the ordered-pair set that matches the table."
-        };
-      }
-
-      if (
-        !challenge.choices[
-          Number(selected)
-        ].correct
-      ) {
-        return {
-          valid: false,
-          message:
-            "That ordered-pair set does not match every row of the table."
-        };
-      }
-
-      const domain =
-        parseSet(
-          document.getElementById(
-            "tableDomain"
-          ).value
-        );
-
-      const range =
-        parseSet(
-          document.getElementById(
-            "tableRange"
-          ).value
-        );
-
-      if (
-        !arraysEqual(
-          domain,
-          challenge.domain
-        )
-      ) {
-        return {
-          valid: false,
-          message:
-            "Recheck the domain. The domain contains the table’s input values."
-        };
-      }
-
-      if (
-        !arraysEqual(
-          range,
-          challenge.range
-        )
-      ) {
-        return {
-          valid: false,
-          message:
-            "Recheck the range. The range contains the table’s output values."
-        };
-      }
-
-      return {
-        valid: true
-      };
+      selectedPairs =
+        challenge.choices[
+          response.pairChoice
+        ].text;
     }
 
-    function checkPairsGraph(
-      challenge
-    ) {
-      const selected =
-        selectedRadio(
-          "graphChoice"
-        );
+    addReportField(
+      section,
+      "Student selected ordered-pair set",
+      selectedPairs
+    );
 
-      if (selected === "") {
-        return {
-          valid: false,
-          message:
-            "Select the graph that contains all four ordered pairs."
-        };
-      }
+    addReportField(
+      section,
+      "Student domain",
+      response.tableDomain
+    );
 
-      if (
-        !challenge.graphSets[
-          Number(selected)
-        ].correct
-      ) {
-        return {
-          valid: false,
-          message:
-            "That graph does not place every point at the listed x- and y-coordinates."
-        };
-      }
+    addReportField(
+      section,
+      "Student range",
+      response.tableRange
+    );
 
-      return {
-        valid: true
-      };
-    }
+    container.appendChild(
+      section
+    );
+  }
 
-    function checkCompleteTable(
-      challenge
-    ) {
-      for (
-        let index = 0;
-        index <
-          challenge.outputs.length;
-        index += 1
-      ) {
-        const input =
-          document.getElementById(
-            `output${index}`
+
+  /* --------------------------------
+     Challenge 2
+  -------------------------------- */
+
+  {
+    const challenge =
+      state.challenges[
+        1
+      ];
+
+    const response =
+      state.responses[
+        1
+      ];
+
+    const section =
+      createReportSection(
+        "purple",
+        "Challenge 2: Ordered Pairs → Graph"
+      );
+
+    const intro =
+      document.createElement(
+        "p"
+      );
+
+    intro.textContent =
+      "Select the graph that contains all four ordered pairs.";
+
+    section.appendChild(
+      intro
+    );
+
+    const prompt =
+      document.createElement(
+        "div"
+      );
+
+    prompt.className =
+      "report-prompt";
+
+    prompt.textContent =
+      formatPairs(
+        challenge.pairs
+      );
+
+    section.appendChild(
+      prompt
+    );
+
+    challenge.graphSets.forEach(
+      (
+        option,
+        index
+      ) => {
+        const optionBox =
+          document.createElement(
+            "div"
           );
 
-        if (
-          input.value.trim() === ""
-        ) {
-          return {
-            valid: false,
-            message:
-              "Enter every missing output in the table."
-          };
-        }
+        optionBox.className =
+          "report-option";
 
         if (
-          Number(input.value) !==
-          challenge.outputs[index]
+          response.graphChoice ===
+          index
         ) {
-          return {
-            valid: false,
-            message:
-              "At least one output is incorrect. Substitute each input into the function rule again."
-          };
+          optionBox.classList.add(
+            "selected"
+          );
         }
-      }
 
-      const rate =
-        document.getElementById(
-          "rateAnswer"
-        );
-
-      if (
-        rate.value.trim() === ""
-      ) {
-        return {
-          valid: false,
-          message:
-            "Enter the function’s constant rate of change."
-        };
-      }
-
-      if (
-        Number(rate.value) !==
-        challenge.slope
-      ) {
-        return {
-          valid: false,
-          message:
-            "Recheck the constant change in output for each one-unit change in input."
-        };
-      }
-
-      return {
-        valid: true
-      };
-    }
-
-    function checkDetective(
-      challenge
-    ) {
-      const answer =
-        document.getElementById(
-          "detectiveAnswer"
-        ).value;
-
-      if (answer === "") {
-        return {
-          valid: false,
-          message:
-            "Select the inconsistent representation."
-        };
-      }
-
-      if (
-        answer !==
-        challenge.incorrectType
-      ) {
-        return {
-          valid: false,
-          message:
-            "That representation is consistent with one of the others. Compare the points, slope, and intercept again."
-        };
-      }
-
-      if (
-        !reasoningIsValid(
-          "detectiveReasoning"
-        )
-      ) {
-        return {
-          valid: false,
-          message:
-            "Expand your explanation using equation, table, graph, point, slope, or intercept vocabulary."
-        };
-      }
-
-      return {
-        valid: true
-      };
-    }
-
-    function checkMapping(
-      challenge
-    ) {
-      const answer =
-        selectedRadio(
-          "mappingFunction"
-        );
-
-      if (answer === "") {
-        return {
-          valid: false,
-          message:
-            "Select whether the mapping is a function."
-        };
-      }
-
-      const expected =
-        challenge.isFunction
-          ? "yes"
-          : "no";
-
-      if (answer !== expected) {
-        return {
-          valid: false,
-          message:
-            "Recheck whether each input is connected to exactly one output."
-        };
-      }
-
-      const domain =
-        parseSet(
-          document.getElementById(
-            "mappingDomain"
-          ).value
-        );
-
-      const range =
-        parseSet(
-          document.getElementById(
-            "mappingRange"
-          ).value
-        );
-
-      if (
-        !arraysEqual(
-          domain,
-          challenge.domain
-        )
-      ) {
-        return {
-          valid: false,
-          message:
-            "Recheck the mapping’s input values."
-        };
-      }
-
-      if (
-        !arraysEqual(
-          range,
-          challenge.range
-        )
-      ) {
-        return {
-          valid: false,
-          message:
-            "Recheck which output values actually receive an arrow."
-        };
-      }
-
-      if (
-        !reasoningIsValid(
-          "mappingReasoning"
-        )
-      ) {
-        return {
-          valid: false,
-          message:
-            "Expand your explanation using input, output, arrow, or function vocabulary."
-        };
-      }
-
-      return {
-        valid: true
-      };
-    }
-
-    function checkBoss(
-      challenge
-    ) {
-      const selected =
-        selectedRadio(
-          "bossChoice"
-        );
-
-      if (selected === "") {
-        return {
-          valid: false,
-          message:
-            "Select the option whose four representations all match."
-        };
-      }
-
-      if (
-        !challenge.options[
-          Number(selected)
-        ].correct
-      ) {
-        return {
-          valid: false,
-          message:
-            "At least one representation in that option does not match the others. Check the equation against every ordered pair."
-        };
-      }
-
-      return {
-        valid: true
-      };
-    }
-
-    function setFeedback(
-      message,
-      type
-    ) {
-      problemFeedback.className =
-        `feedback ${type}`.trim();
-
-      problemFeedback.textContent =
-        message;
-
-      announce(message);
-    }
-
-    function startActivity() {
-      const firstName =
-        document.getElementById(
-          "firstName"
-        ).value.trim();
-
-      const lastName =
-        document.getElementById(
-          "lastName"
-        ).value.trim();
-
-      if (
-        firstName.length < 2 ||
-        lastName.length < 2
-      ) {
-        const feedback =
-          document.getElementById(
-            "welcomeFeedback"
+        const title =
+          document.createElement(
+            "div"
           );
 
-        feedback.textContent =
-          "Enter both your first and last name before beginning.";
+        title.className =
+          "report-option-title";
 
-        feedback.classList.remove(
-          "hidden"
-        );
-
-        return;
-      }
-
-      state.studentName =
-        `${firstName} ${lastName}`;
-
-      state.startedAt =
-        new Date().toISOString();
-
-      state.currentChallenge = 0;
-      state.totalChecks = 0;
-
-      state.challenges =
-        generateChallenges();
-
-      document.getElementById(
-        "studentStatus"
-      ).textContent =
-        state.studentName;
-
-      welcomeScreen.classList.add(
-        "hidden"
-      );
-
-      activityScreen.classList.remove(
-        "hidden"
-      );
-
-      renderCurrentChallenge();
-
-      state.timerId =
-        window.setInterval(
-          updateTimer,
-          1000
-        );
-
-      updateTimer();
-    }
-
-    function showCompletion() {
-      clearInterval(
-        state.timerId
-      );
-
-      activityScreen.classList.add(
-        "hidden"
-      );
-
-      completionScreen.classList.remove(
-        "hidden"
-      );
-
-      const elapsed =
-        new Date(
-          state.completedAt
-        ).getTime() -
-        new Date(
-          state.startedAt
-        ).getTime();
-
-      document.getElementById(
-        "certificateName"
-      ).textContent =
-        state.studentName;
-
-      document.getElementById(
-        "certificateDate"
-      ).textContent =
-        formatDateOnly(
-          state.completedAt
-        );
-
-      document.getElementById(
-        "certificateVersion"
-      ).textContent =
-        ACTIVITY_VERSION;
-
-      document.getElementById(
-        "certificateStart"
-      ).textContent =
-        formatDateTime(
-          state.startedAt
-        );
-
-      document.getElementById(
-        "certificateCompleted"
-      ).textContent =
-        formatDateTime(
-          state.completedAt
-        );
-
-      document.getElementById(
-        "certificateElapsed"
-      ).textContent =
-        formatElapsed(elapsed);
-
-      document.getElementById(
-        "certificateChecks"
-      ).textContent =
-        String(state.totalChecks);
-
-      document.getElementById(
-        "certificateCode"
-      ).textContent =
-        createVerificationCode();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-      announce(
-        "All six representation challenges are mastered."
-      );
-    }
-
-    function updateTimer() {
-      if (!state.startedAt) {
-        return;
-      }
-
-      const end =
-        state.completedAt
-          ? new Date(
-            state.completedAt
-          ).getTime()
-          : Date.now();
-
-      document.getElementById(
-        "elapsedStatus"
-      ).textContent =
-        formatElapsed(
-          end -
-          new Date(
-            state.startedAt
-          ).getTime()
-        );
-    }
-
-    function formatElapsed(
-      milliseconds
-    ) {
-      const totalSeconds =
-        Math.max(
-          0,
-          Math.floor(
-            milliseconds / 1000
-          )
-        );
-
-      const hours =
-        Math.floor(
-          totalSeconds / 3600
-        );
-
-      const minutes =
-        Math.floor(
+        title.textContent =
           (
-            totalSeconds % 3600
-          ) / 60
+            `Graph ${String.fromCharCode(65 + index)}` +
+            (
+              response.graphChoice ===
+              index
+                ? " — Student Selection"
+                : ""
+            )
+          );
+
+        optionBox.appendChild(
+          title
         );
 
-      const seconds =
-        totalSeconds % 60;
+        addGraphToReport(
+          optionBox,
+          option.points,
+          `Graph ${String.fromCharCode(65 + index)}`
+        );
 
-      if (hours > 0) {
-        return [
-          hours,
-          String(minutes).padStart(
-            2,
-            "0"
-          ),
-          String(seconds).padStart(
-            2,
-            "0"
+        section.appendChild(
+          optionBox
+        );
+      }
+    );
+
+    container.appendChild(
+      section
+    );
+  }
+
+
+  /* --------------------------------
+     Challenge 3
+  -------------------------------- */
+
+  {
+    const challenge =
+      state.challenges[
+        2
+      ];
+
+    const response =
+      state.responses[
+        2
+      ];
+
+    const section =
+      createReportSection(
+        "yellow",
+        "Challenge 3: Complete the Function Table"
+      );
+
+    const rule =
+      document.createElement(
+        "div"
+      );
+
+    rule.className =
+      "report-prompt";
+
+    rule.textContent =
+      formatLinearRule(
+        challenge.slope,
+        challenge.intercept
+      );
+
+    section.appendChild(
+      rule
+    );
+
+    const studentPairs =
+      challenge.inputs.map(
+        (
+          input,
+          index
+        ) => [
+          input,
+          response.outputs[
+            index
+          ]
+        ]
+      );
+
+    addTableToReport(
+      section,
+      studentPairs
+    );
+
+    addReportField(
+      section,
+      "Student constant rate of change",
+      response.rateAnswer
+    );
+
+    container.appendChild(
+      section
+    );
+  }
+
+
+  /* --------------------------------
+     Challenge 4
+  -------------------------------- */
+
+  {
+    const challenge =
+      state.challenges[
+        3
+      ];
+
+    const response =
+      state.responses[
+        3
+      ];
+
+    const section =
+      createReportSection(
+        "green",
+        "Challenge 4: Representation Detective"
+      );
+
+    const intro =
+      document.createElement(
+        "p"
+      );
+
+    intro.textContent =
+      "Two representations show the same function. One does not.";
+
+    section.appendChild(
+      intro
+    );
+
+    const equationLabel =
+      document.createElement(
+        "p"
+      );
+
+    equationLabel.className =
+      "report-label";
+
+    equationLabel.textContent =
+      "Equation";
+
+    const equation =
+      document.createElement(
+        "div"
+      );
+
+    equation.className =
+      "report-prompt";
+
+    equation.textContent =
+      challenge.equation;
+
+    section.append(
+      equationLabel,
+      equation
+    );
+
+    const tableLabel =
+      document.createElement(
+        "p"
+      );
+
+    tableLabel.className =
+      "report-label";
+
+    tableLabel.textContent =
+      "Table";
+
+    section.appendChild(
+      tableLabel
+    );
+
+    addTableToReport(
+      section,
+      challenge.tablePairs,
+      "y"
+    );
+
+    const graphLabel =
+      document.createElement(
+        "p"
+      );
+
+    graphLabel.className =
+      "report-label";
+
+    graphLabel.textContent =
+      "Graph";
+
+    section.appendChild(
+      graphLabel
+    );
+
+    addGraphToReport(
+      section,
+      challenge.graphPoints,
+      "Graph from representation detective challenge"
+    );
+
+    addReportField(
+      section,
+      "Student identified inconsistent representation",
+      response.detectiveAnswer
+        ? response.detectiveAnswer
+            .charAt(0)
+            .toUpperCase() +
+          response.detectiveAnswer
+            .slice(1)
+        : "—"
+    );
+
+    addReportField(
+      section,
+      "Student explanation",
+      response.detectiveReasoning
+    );
+
+    container.appendChild(
+      section
+    );
+  }
+
+
+  /* --------------------------------
+     Challenge 5
+  -------------------------------- */
+
+  {
+    const challenge =
+      state.challenges[
+        4
+      ];
+
+    const response =
+      state.responses[
+        4
+      ];
+
+    const section =
+      createReportSection(
+        "purple",
+        "Challenge 5: Interpret a Mapping Diagram"
+      );
+
+    const mapping =
+      document.createElement(
+        "div"
+      );
+
+    mapping.className =
+      "mapping-wrap";
+
+    mapping.innerHTML =
+      mappingSvg(
+        challenge.inputs,
+        challenge.outputs,
+        challenge.arrows
+      );
+
+    section.appendChild(
+      mapping
+    );
+
+    addReportField(
+      section,
+      "Student function classification",
+      response.mappingFunction ===
+        "yes"
+        ? "Yes, it is a function."
+        : response.mappingFunction ===
+            "no"
+          ? "No, it is not a function."
+          : "—"
+    );
+
+    addReportField(
+      section,
+      "Student domain",
+      response.mappingDomain
+    );
+
+    addReportField(
+      section,
+      "Student range",
+      response.mappingRange
+    );
+
+    addReportField(
+      section,
+      "Student explanation",
+      response.mappingReasoning
+    );
+
+    container.appendChild(
+      section
+    );
+  }
+
+
+  /* --------------------------------
+     Challenge 6
+  -------------------------------- */
+
+  {
+    const challenge =
+      state.challenges[
+        5
+      ];
+
+    const response =
+      state.responses[
+        5
+      ];
+
+    const section =
+      createReportSection(
+        "yellow",
+        "Challenge 6: Multiple Representation Match"
+      );
+
+    const intro =
+      document.createElement(
+        "p"
+      );
+
+    intro.textContent =
+      "Select the option in which the equation, ordered pairs, graph, and mapping all represent the same function.";
+
+    section.appendChild(
+      intro
+    );
+
+    challenge.options.forEach(
+      (
+        option,
+        index
+      ) => {
+        const optionBox =
+          document.createElement(
+            "div"
+          );
+
+        optionBox.className =
+          "report-option";
+
+        if (
+          response.bossChoice ===
+          index
+        ) {
+          optionBox.classList.add(
+            "selected"
+          );
+        }
+
+        const title =
+          document.createElement(
+            "div"
+          );
+
+        title.className =
+          "report-option-title";
+
+        title.textContent =
+          (
+            `Option ${String.fromCharCode(65 + index)}` +
+            (
+              response.bossChoice ===
+              index
+                ? " — Student Selection"
+                : ""
+            )
+          );
+
+        optionBox.appendChild(
+          title
+        );
+
+        const grid =
+          document.createElement(
+            "div"
+          );
+
+        grid.className =
+          "report-boss-grid";
+
+        const equationCell =
+          document.createElement(
+            "div"
+          );
+
+        equationCell.className =
+          "report-boss-cell";
+
+        equationCell.innerHTML =
+          "<strong>Equation</strong>";
+
+        equationCell.appendChild(
+          document.createTextNode(
+            option.equation
           )
-        ].join(":");
-      }
+        );
 
-      return [
-        String(minutes).padStart(
-          2,
-          "0"
-        ),
-        String(seconds).padStart(
-          2,
-          "0"
-        )
-      ].join(":");
-    }
 
-    function formatDateTime(iso) {
-      return new Intl.DateTimeFormat(
-        "en-US",
-        {
-          dateStyle: "medium",
-          timeStyle: "short"
-        }
-      ).format(
-        new Date(iso)
-      );
-    }
-
-    function formatDateOnly(iso) {
-      return new Intl.DateTimeFormat(
-        "en-US",
-        {
-          dateStyle: "long"
-        }
-      ).format(
-        new Date(iso)
-      );
-    }
-
-    function simpleHash(text) {
-      let hash =
-        2166136261;
-
-      for (
-        let index = 0;
-        index < text.length;
-        index += 1
-      ) {
-        hash ^=
-          text.charCodeAt(index);
-
-        hash =
-          Math.imul(
-            hash,
-            16777619
+        const pairCell =
+          document.createElement(
+            "div"
           );
+
+        pairCell.className =
+          "report-boss-cell";
+
+        pairCell.innerHTML =
+          "<strong>Ordered Pairs</strong>";
+
+        pairCell.appendChild(
+          document.createTextNode(
+            formatPairs(
+              option.pairs
+            )
+          )
+        );
+
+
+        const mappingCell =
+          document.createElement(
+            "div"
+          );
+
+        mappingCell.className =
+          "report-boss-cell";
+
+        mappingCell.innerHTML =
+          "<strong>Mapping</strong>";
+
+        mappingCell.appendChild(
+          document.createTextNode(
+            option.mappingText
+          )
+        );
+
+
+        grid.append(
+          equationCell,
+          pairCell,
+          mappingCell
+        );
+
+        optionBox.appendChild(
+          grid
+        );
+
+        const graphLabel =
+          document.createElement(
+            "p"
+          );
+
+        graphLabel.className =
+          "report-label";
+
+        graphLabel.textContent =
+          "Graph";
+
+        optionBox.appendChild(
+          graphLabel
+        );
+
+        addGraphToReport(
+          optionBox,
+          option.graphPoints,
+          `Graph for option ${String.fromCharCode(65 + index)}`
+        );
+
+        section.appendChild(
+          optionBox
+        );
       }
-
-      return (
-        hash >>> 0
-      )
-        .toString(36)
-        .toUpperCase()
-        .padStart(7, "0");
-    }
-
-    function createVerificationCode() {
-      const source = [
-        state.studentName,
-        state.startedAt,
-        state.completedAt,
-        state.totalChecks,
-        JSON.stringify(
-          state.challenges
-        ),
-        ACTIVITY_VERSION
-      ].join("::");
-
-      const dateCode =
-        new Date(
-          state.completedAt
-        )
-          .toISOString()
-          .slice(0, 10)
-          .replaceAll("-", "");
-
-      return (
-        `REP-${dateCode}-` +
-        simpleHash(source)
-      );
-    }
-
-    function announce(message) {
-      liveStatus.textContent = "";
-
-      window.setTimeout(
-        () => {
-          liveStatus.textContent =
-            message;
-        },
-        25
-      );
-    }
-
-    document.getElementById(
-      "beginButton"
-    ).addEventListener(
-      "click",
-      startActivity
     );
 
-    document.getElementById(
-      "checkButton"
-    ).addEventListener(
-      "click",
-      checkCurrentChallenge
+    container.appendChild(
+      section
+    );
+  }
+}
+
+
+/* ==========================================
+   COMPLETION
+========================================== */
+
+function populateCompletionReport() {
+  const elapsed =
+    new Date(
+      state.completedAt
+    ).getTime() -
+    new Date(
+      state.startedAt
+    ).getTime();
+
+  const code =
+    createVerificationCode();
+
+  setReportText(
+    "reportStudent",
+    state.studentName
+  );
+
+  setReportText(
+    "reportDate",
+    formatDateOnly(
+      state.completedAt
+    )
+  );
+
+  setReportText(
+    "reportStarted",
+    formatDateTime(
+      state.startedAt
+    )
+  );
+
+  setReportText(
+    "reportCompleted",
+    formatDateTime(
+      state.completedAt
+    )
+  );
+
+  setReportText(
+    "reportElapsed",
+    formatElapsed(
+      elapsed
+    )
+  );
+
+  setReportText(
+    "reportChecks",
+    String(
+      state.totalChecks
+    )
+  );
+
+  setReportText(
+    "reportVersion",
+    ACTIVITY_VERSION
+  );
+
+  setReportText(
+    "reportCode",
+    code
+  );
+
+  buildChallengeReports();
+
+
+  setReportText(
+    "certificateName",
+    state.studentName
+  );
+
+  setReportText(
+    "certificateDate",
+    formatDateOnly(
+      state.completedAt
+    )
+  );
+
+  setReportText(
+    "certificateVersion",
+    ACTIVITY_VERSION
+  );
+
+  setReportText(
+    "certificateStart",
+    formatDateTime(
+      state.startedAt
+    )
+  );
+
+  setReportText(
+    "certificateCompleted",
+    formatDateTime(
+      state.completedAt
+    )
+  );
+
+  setReportText(
+    "certificateElapsed",
+    formatElapsed(
+      elapsed
+    )
+  );
+
+  setReportText(
+    "certificateChecks",
+    String(
+      state.totalChecks
+    )
+  );
+
+  setReportText(
+    "certificateCode",
+    code
+  );
+}
+
+
+function showCompletion() {
+  if (
+    state.timerId
+  ) {
+    clearInterval(
+      state.timerId
+    );
+  }
+
+  updateTimer();
+
+  welcomeScreen.classList.add(
+    "hidden"
+  );
+
+  activityScreen.classList.add(
+    "hidden"
+  );
+
+  completionScreen.classList.remove(
+    "hidden"
+  );
+
+  populateCompletionReport();
+  saveState();
+
+  window.scrollTo({
+    top:
+      0,
+
+    behavior:
+      "smooth"
+  });
+
+  announce(
+    "All six representation challenges are mastered. Your full submission report and completion certificate are ready."
+  );
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+function resetActivity() {
+  const confirmed =
+    window.confirm(
+      "Start a new attempt with six new randomized challenges? This will erase all saved responses and the current completion certificate on this device."
     );
 
-    document.getElementById(
-      "printButton"
-    ).addEventListener(
-      "click",
-      () => window.print()
-    );
+  if (
+    !confirmed
+  ) {
+    return;
+  }
 
-    document.getElementById(
-      "newAttemptButton"
-    ).addEventListener(
-      "click",
+  try {
+    localStorage.removeItem(
+      STORAGE_KEY
+    );
+  } catch (
+    error
+  ) {
+    console.warn(
+      error
+    );
+  }
+
+  window.location.reload();
+}
+
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+function announce(
+  message
+) {
+  liveStatus.textContent =
+    "";
+
+  window.setTimeout(
+    () => {
+      liveStatus.textContent =
+        message;
+    },
+    25
+  );
+}
+
+
+/* ==========================================
+   EVENTS
+========================================== */
+
+document.getElementById(
+  "beginButton"
+).addEventListener(
+  "click",
+  startActivity
+);
+
+document.getElementById(
+  "checkButton"
+).addEventListener(
+  "click",
+  checkCurrentChallenge
+);
+
+document.getElementById(
+  "printButton"
+).addEventListener(
+  "click",
+  () => {
+    populateCompletionReport();
+
+    window.setTimeout(
       () => {
-        const confirmed =
-          window.confirm(
-            "Start a new attempt with six new randomized challenges?"
-          );
-
-        if (confirmed) {
-          window.location.reload();
-        }
-      }
+        window.print();
+      },
+      100
     );
-  </script>
+  }
+);
+
+document.getElementById(
+  "newAttemptButton"
+).addEventListener(
+  "click",
+  resetActivity
+);
+
+
+/* ==========================================
+   INITIALIZE
+========================================== */
+
+restoreState();
+
+</script>
+
 </body>
 </html>
